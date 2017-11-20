@@ -4,6 +4,13 @@ import './index.css';
 import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';
 import '../node_modules/bulma/css/bulma.css';
-
-ReactDOM.render(<App />, document.getElementById('root'));
+import { BrowserRouter, Route } from 'react-router-dom';
+ 
+ReactDOM.render(
+<BrowserRouter>
+  <div>
+    <Route exact path="/" component={App} />
+  </div>
+</BrowserRouter>
+, document.getElementById('root'));
 registerServiceWorker();
