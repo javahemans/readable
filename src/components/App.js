@@ -6,6 +6,24 @@ class App extends Component {
 
   render() {
 
+  // The response is an object with categories as a key and value being an array. 
+  const category_response = {
+        "categories": [
+            {
+                "name": "react",
+                "path": "react"
+            },
+            {
+                "name": "redux",
+                "path": "redux"
+            },
+            {
+                "name": "udacity",
+                "path": "udacity"
+            }
+        ]
+    }
+
     const posts = [
       {
           "id": "8xf0y6ziyjabvozdd253nd",
@@ -57,6 +75,20 @@ class App extends Component {
         <section>
           <div className="container">
             <nav className="level">
+            {category_response["categories"].map(cat => {
+              return (
+                <div key={cat.path} className="level-item has-text-centered">
+                  <p className="level-item"><a href={cat.path}>{cat.name}</a></p>
+                </div>
+              )
+            })}
+            </nav>
+            <hr />
+          </div>
+        </section>
+        <section>
+          <div className="container">
+            <nav className="level">
               <div className="level-left">
                 <div className="level-item">
                 <p className="control has-icons-left">
@@ -103,7 +135,7 @@ class App extends Component {
                   <br />
                   {post.body}
                   <br />
-                  <small>By: {post.author}</small> <small> | {moment(post.timestamp).from()}</small>
+                  <small>In <i>{post.category}</i>, by: {post.author}</small> <small> | {moment(post.timestamp).from()}</small>
                 </p>
               </div>
               <nav className="level is-mobile">
