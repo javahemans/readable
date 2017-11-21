@@ -4,6 +4,7 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 import { fetchPosts } from '../actions';
 import _ from 'lodash';
+import { Link } from 'react-router-dom';
 window._ = _; // Debugging lodash in console.
 window.moment = moment; // Debugging moment in console.
 
@@ -69,7 +70,7 @@ class App extends Component {
             {category_response["categories"].map(cat => {
               return (
                 <div key={cat.path} className="level-item has-text-centered">
-                  <p className="level-item"><a href={cat.path}>{cat.name}</a></p>
+                  <p className="level-item"><Link to={cat.path}>{cat.name}</Link></p>
                 </div>
               )
             })}
@@ -96,7 +97,7 @@ class App extends Component {
                 </div>
               </div>
               <div className="level-right">
-                <div className="level-item"><a className="button is-success">New Post</a></div>
+                <div className="level-item"><Link className="button is-success" to="/posts/new" >New Post</Link></div>
               </div>
             </nav>
             <hr/>          
