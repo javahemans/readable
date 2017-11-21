@@ -2,9 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App';
+import PostsNew from './components/posts_new';
 import registerServiceWorker from './registerServiceWorker';
 import '../node_modules/bulma/css/bulma.css';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
@@ -22,7 +23,11 @@ ReactDOM.render(
 <Provider store={store}>
   <BrowserRouter>
     <div>
-      <Route exact path="/" component={App} />
+      <Switch>
+        <Route exact path="/" component={App} />
+        <Route exact path="/posts/new" component={PostsNew} />
+        <Route exact path="/:category/posts" component={App} />
+      </Switch>      
     </div>
   </BrowserRouter>
 </Provider>
