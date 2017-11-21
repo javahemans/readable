@@ -40,7 +40,7 @@ class App extends Component {
     
     return (
       <div className="App">
-        <nav className="navbar" role="navigation" aria-label="main navigation">
+        <nav className="navbar" aria-label="main navigation">
           <div className="navbar-brand">
             <a className="navbar-item" href="https://www.nagibtharani.com">READABLE | UDACITY-P2</a>
 
