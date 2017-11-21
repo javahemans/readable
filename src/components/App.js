@@ -3,6 +3,7 @@ import './App.css';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { fetchPosts } from '../actions';
+import PostsList from './PostsList';
 import _ from 'lodash';
 window._ = _; // Debugging lodash in console.
 window.moment = moment; // Debugging moment in console.
@@ -102,53 +103,15 @@ class App extends Component {
             <hr/>          
           </div>
         </section>
-        <section>
-        <div className="container">
-          {_.map(posts, post => {
-            return (
-          <article key={post.id} className="media">
-            <figure className="media-left votebox">
-              <p className="has-text-centered">
-              <span className="icon"><i className="fa fa-caret-up fa-3x"></i></span>
-              </p>
-              <p className="has-text-centered has-text-info is-size-4">
-              {post.voteScore}
-              </p>
-              <p className="has-text-centered">
-              <span className="icon"><i className="fa fa-caret-down fa-3x"></i></span>
-              </p>
-
-            </figure>
-            <div className="media-content">
-              <div className="content">
-                <p>
-                  <strong>{post.title}</strong>
-                  <br />
-                  {post.body}
-                  <br />
-                  <small>In <i>{post.category}</i>, by: {post.author}</small> <small> | {moment(post.timestamp).from()}</small>
-                </p>
-              </div>
-              <nav className="level is-mobile">
-                <div className="level-left">
-                  <a className="level-item">
-                  {post.commentCount}&nbsp; <span className="icon is-small"><i className="fa fa-comments"></i></span>
-                  </a>
-                </div>
-              </nav>
-            </div>
-          </article>
-        );
-          })}
-        </div>
-        </section>
+        <PostsList posts={posts} />
       </div>
     );
   }
 }
 
-function mapStateToProps({posts}){
-  return { posts };
+
+function mapStateToProps({ posts }){ // ES6: equivalent to state here and then const posts = state.posts in the body.
+  return { posts }; // ES6 as opposed to posts:posts
 }
 
 // export default App;
