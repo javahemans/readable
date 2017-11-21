@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
 import './App.css';
 import moment from 'moment';
+import { connect } from 'react-redux';
+import { fetchPosts } from '../actions';
+import _ from 'lodash';
+window._ = _;
+
 window.moment = moment;
+
 class App extends Component {
+
+  componentDidMount() {
+    this.props.fetchPosts();
+  }
 
   render() {
 
@@ -24,31 +34,10 @@ class App extends Component {
         ]
     }
 
-    const posts = [
-      {
-          "id": "8xf0y6ziyjabvozdd253nd",
-          "timestamp": 1467166872634,
-          "title": "Udacity is the best place to learn React",
-          "body": "Everyone says so after all.",
-          "author": "thingtwo",
-          "category": "react",
-          "voteScore": 6,
-          "deleted": false,
-          "commentCount": 2
-      },
-      {
-          "id": "6ni6ok3ym7mf1p33lnez",
-          "timestamp": 1468479767190,
-          "title": "Learn Redux in 10 minutes!",
-          "body": "Just kidding. It takes more than 10 minutes to learn technology.",
-          "author": "thingone",
-          "category": "redux",
-          "voteScore": -5,
-          "deleted": false,
-          "commentCount": 0
-      }
-    ]
-  
+    const { posts } = this.props;
+    
+    console.log("posts is, ",posts)
+    
     return (
       <div className="App">
         <nav className="navbar" role="navigation" aria-label="main navigation">
@@ -113,10 +102,10 @@ class App extends Component {
         </section>
         <section>
         <div className="container">
-          {posts.map(post => {
+          {_.map(posts, post => {
             return (
           <article key={post.id} className="media">
-            <figure className="media-left">
+            <figure className="media-left votebox">
               <p className="has-text-centered">
               <span className="icon"><i className="fa fa-caret-up fa-3x"></i></span>
               </p>
@@ -156,4 +145,9 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapStateToProps(state){
+  return { posts: state.posts };
+}
+
+// export default App;
+export default connect(mapStateToProps, { fetchPosts })(App);
