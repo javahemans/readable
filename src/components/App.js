@@ -70,7 +70,7 @@ class App extends Component {
             {category_response["categories"].map(cat => {
               return (
                 <div key={cat.path} className="level-item has-text-centered">
-                  <p className="level-item"><Link to={`${cat.path}/posts`}>{cat.name}</Link></p>
+                  <p className="level-item"><Link to={`/${cat.path}/posts`}>{cat.name}</Link></p>
                 </div>
               )
             })}
