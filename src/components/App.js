@@ -64,6 +64,9 @@ class App extends Component {
         <section>
           <div className="container">
             <nav className="level">
+            <div className="level-item has-text-centered">
+                  <p className="level-item"><a href="/">ALL</a></p>
+                </div>
             {category_response["categories"].map(cat => {
               return (
                 <div key={cat.path} className="level-item has-text-centered">

@@ -8,7 +8,7 @@ export default function (state = {}, action) {
       // _.mapKeys (Lodash) here to covert array to object.
       return ( _.chain(action.payload.data)
               .mapKeys('id')
-              .orderBy(val => val.voteScore, ['asc'])
+              .orderBy(val => val.voteScore, ['desc'])
               .value()
       );
     default: 
