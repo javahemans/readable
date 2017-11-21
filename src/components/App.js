@@ -4,9 +4,8 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 import { fetchPosts } from '../actions';
 import _ from 'lodash';
-window._ = _;
-
-window.moment = moment;
+window._ = _; // Debugging lodash in console.
+window.moment = moment; // Debugging moment in console.
 
 class App extends Component {
 
@@ -64,9 +63,9 @@ class App extends Component {
         <section>
           <div className="container">
             <nav className="level">
-            <div className="level-item has-text-centered">
-                  <p className="level-item"><a href="/">ALL</a></p>
-                </div>
+              <div className="level-item has-text-centered">
+                <p className="level-item"><a href="/">ALL</a></p>
+              </div>
             {category_response["categories"].map(cat => {
               return (
                 <div key={cat.path} className="level-item has-text-centered">
@@ -148,8 +147,8 @@ class App extends Component {
   }
 }
 
-function mapStateToProps(state){
-  return { posts: state.posts };
+function mapStateToProps({posts}){
+  return { posts };
 }
 
 // export default App;
