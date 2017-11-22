@@ -30,3 +30,11 @@
 figure.votebox {
   margin-left: 1rem !important;
 }
+
+li.postItem {
+  padding: 2rem 0;
+}
+
+li.postItem:nth-of-type(odd) {
+  background: aliceblue;
+}

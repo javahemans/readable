@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
+
 
 class Post extends Component {
+
+  handleClick = () => {
+      console.log("HandleClick here");
+  }
 
   render(){
 
@@ -9,7 +15,6 @@ class Post extends Component {
     
     return (
       <article key={post.id} className="media">
-
         <figure className="media-left votebox">
           <p className="has-text-centered">
           <span className="icon"><i className="fa fa-caret-up fa-3x"></i></span>
@@ -23,12 +28,15 @@ class Post extends Component {
         </figure>
 
         <div className="media-content">
-          <div className="content">
+          <div className="content" onClick={this.handleClick}>
+            <Link to={`/posts/{post.title}`}>
             <p>
               <strong>{post.title}</strong>
               <br />
               {post.body}
-              <br />
+            </p>
+            </Link>
+            <p>
               <small>In <i>{post.category}</i>, by: {post.author}</small> <small> | {moment(post.timestamp).from()}</small>
             </p>
           </div>

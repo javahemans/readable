@@ -45,8 +45,6 @@ class PostsList extends Component {
           }
       ]
     }
-
-
     
     return(
       <div>
@@ -96,7 +94,7 @@ class PostsList extends Component {
             <ul>
             {_.map(posts, post => {
             return (
-                <li key={post.id}>
+                <li className="postItem" key={post.id}>
                   <Post post={post} />
                 </li>
             );
