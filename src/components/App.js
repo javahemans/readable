@@ -2,16 +2,18 @@ import React, { Component } from 'react';
 import './App.css';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import { fetchPosts } from '../actions';
+import { fetchPosts, fetchCategoryPosts } from '../actions';
 import _ from 'lodash';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+
 window._ = _; // Debugging lodash in console.
 window.moment = moment; // Debugging moment in console.
 
 class App extends Component {
 
   componentDidMount() {
-    this.props.fetchPosts();
+    console.log("Route Params, ", this.props.match.params.category);
+    this.props.match.params.category ? this.props.fetchCategoryPosts(this.props.match.params.category) : this.props.fetchPosts();
   }
 
   render() {
@@ -40,6 +42,7 @@ class App extends Component {
     
     return (
       <div className="App">
+        <h1>Route Params: {this.props.match.params.category}</h1>
         <nav className="navbar" aria-label="main navigation">
           <div className="navbar-brand">
             <a className="navbar-item" href="https://www.nagibtharani.com">READABLE | UDACITY-P2</a>
@@ -65,7 +68,7 @@ class App extends Component {
           <div className="container">
             <nav className="level">
               <div className="level-item has-text-centered">
-                <p className="level-item"><a href="/">ALL</a></p>
+                <p className="level-item"><Link to="/">ALL</Link></p>
               </div>
             {category_response["categories"].map(cat => {
               return (
@@ -153,4 +156,4 @@ function mapStateToProps({posts}){
 }
 
 // export default App;
-export default connect(mapStateToProps, { fetchPosts })(App);
+export default withRouter(connect(mapStateToProps, { fetchPosts, fetchCategoryPosts })(App));

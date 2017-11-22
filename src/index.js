@@ -25,8 +25,8 @@ ReactDOM.render(
     <div>
       <Switch>
         <Route exact path="/" component={App} />
-        <Route exact path="/posts/new" component={PostsNew} />
-        <Route exact path="/:category/posts" component={App} />
+        <Route path="/posts/new" component={PostsNew} />
+        <Route path="/:category/posts" component={App} />
       </Switch>      
     </div>
   </BrowserRouter>
