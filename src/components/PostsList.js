@@ -7,23 +7,20 @@ import { fetchPosts, fetchCategoryPosts } from '../actions';
 
 class PostsList extends Component {
 
-
   fetchData = () => {
     this.props.match.params.category ? this.props.fetchCategoryPosts(this.props.match.params.category) : this.props.fetchPosts();
-    
   }
-  componentDidMount() {
 
+  componentDidMount() {
     this.fetchData()
   }
 
   componentDidUpdate(prevProps){
-    console.log( prevProps.match, this.props.match)
+    console.log(prevProps.match, this.props.match)
     if( prevProps.match.url!== this.props.match.url){
       this.fetchData();
     }
   }
-
 
   render() {
 
@@ -89,7 +86,6 @@ class PostsList extends Component {
                 </div>
               </div>
               <div className="level-right">
-                <div className="level-item"><a className="button is-success">New Post</a></div>
               </div>
             </nav>
             <hr/>          

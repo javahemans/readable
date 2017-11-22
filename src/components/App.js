@@ -5,7 +5,9 @@ import moment from 'moment';
 // import { fetchPosts } from '../actions';
 import PostsList from './PostsList';
 import _ from 'lodash';
-import { Route, withRouter} from 'react-router-dom';
+import { Route, Switch, Link } from 'react-router-dom';
+import PostsNew from './posts_new';
+
 
 window._ = _; // Debugging lodash in console.
 window.moment = moment; // Debugging moment in console.
@@ -19,7 +21,6 @@ class App extends Component {
         <nav className="navbar" aria-label="main navigation">
           <div className="navbar-brand">
             <a className="navbar-item" href="https://www.nagibtharani.com">READABLE | UDACITY-P2</a>
-
             <button className="button navbar-burger">
               <span></span>
               <span></span>
@@ -37,13 +38,26 @@ class App extends Component {
             </p>
           </div>
         </section>
+        <section>
+          <div className="container">
+            <nav className="level">
+              <div className="level-left">
+              </div>
+              <div className="level-right">
+                <div className="level-item"><Link to="/posts/new" className="button is-success">New Post</Link></div>
+              </div>
+            </nav>
+            <hr/>          
+          </div>
+        </section>
+        <Switch>
           <Route exact path ='/' component={PostsList} />
           <Route path ='/:category/posts' component={PostsList} />
-        {/* <Route exact path="/:category/posts" render={({match, location}) => (
-            <PostsList match={match} location={location}  />
-        )} /> */}
-
-        {/* <PostsList posts={posts} /> */}
+          <Route exact path ='/posts/new' component={PostsNew} />
+        </Switch>
+          {/* <Route exact path="/:category/posts" render={({match, location}) => (
+              <PostsList match={match} location={location}  />
+          )} /> */}
       </div>
     );
   }
