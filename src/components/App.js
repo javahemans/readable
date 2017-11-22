@@ -1,48 +1,21 @@
 import React, { Component } from 'react';
 import './App.css';
 import moment from 'moment';
-import { connect } from 'react-redux';
-import { fetchPosts, fetchCategoryPosts } from '../actions';
+// import { connect } from 'react-redux';
+// import { fetchPosts } from '../actions';
+import PostsList from './PostsList';
 import _ from 'lodash';
-import { Link, withRouter } from 'react-router-dom';
+import { Route, withRouter} from 'react-router-dom';
 
 window._ = _; // Debugging lodash in console.
 window.moment = moment; // Debugging moment in console.
 
 class App extends Component {
 
-  componentDidMount() {
-    console.log("Route Params, ", this.props.match.params.category);
-    this.props.match.params.category ? this.props.fetchCategoryPosts(this.props.match.params.category) : this.props.fetchPosts();
-  }
-
   render() {
-
-  // The response is an object with categories as a key and value being an array. 
-  const category_response = {
-        "categories": [
-            {
-                "name": "react",
-                "path": "react"
-            },
-            {
-                "name": "redux",
-                "path": "redux"
-            },
-            {
-                "name": "udacity",
-                "path": "udacity"
-            }
-        ]
-    }
-
-    const { posts } = this.props;
-    
-    console.log("posts is, ",posts)
     
     return (
       <div className="App">
-        <h1>Route Params: {this.props.match.params.category}</h1>
         <nav className="navbar" aria-label="main navigation">
           <div className="navbar-brand">
             <a className="navbar-item" href="https://www.nagibtharani.com">READABLE | UDACITY-P2</a>
@@ -64,96 +37,18 @@ class App extends Component {
             </p>
           </div>
         </section>
-        <section>
-          <div className="container">
-            <nav className="level">
-              <div className="level-item has-text-centered">
-                <p className="level-item"><Link to="/">ALL</Link></p>
-              </div>
-            {category_response["categories"].map(cat => {
-              return (
-                <div key={cat.path} className="level-item has-text-centered">
-                  <p className="level-item"><Link to={`/${cat.path}/posts`}>{cat.name}</Link></p>
-                </div>
-              )
-            })}
-            </nav>
-            <hr />
-          </div>
-        </section>
-        <section>
-          <div className="container">
-            <nav className="level">
-              <div className="level-left">
-                <div className="level-item">
-                <p className="control has-icons-left">
-                  <span className="select">
-                    <select>
-                      <option>Votescore</option>
-                      <option>Post Date</option>
-                    </select>
-                  </span>
-                  <span className="icon is-small is-left">
-                    <i className="fa fa-filter"></i>
-                  </span>
-                </p>
-                </div>
-              </div>
-              <div className="level-right">
-                <div className="level-item"><Link className="button is-success" to="/posts/new" >New Post</Link></div>
-              </div>
-            </nav>
-            <hr/>          
-          </div>
-        </section>
-        <section>
-        <div className="container">
-          {_.map(posts, post => {
-            return (
-          <article key={post.id} className="media">
-            <figure className="media-left votebox">
-              <p className="has-text-centered">
-              <span className="icon"><i className="fa fa-caret-up fa-3x"></i></span>
-              </p>
-              <p className="has-text-centered has-text-info is-size-4">
-              {post.voteScore}
-              </p>
-              <p className="has-text-centered">
-              <span className="icon"><i className="fa fa-caret-down fa-3x"></i></span>
-              </p>
+          <Route exact path ='/' component={PostsList} />
+          <Route path ='/:category/posts' component={PostsList} />
+        {/* <Route exact path="/:category/posts" render={({match, location}) => (
+            <PostsList match={match} location={location}  />
+        )} /> */}
 
-            </figure>
-            <div className="media-content">
-              <div className="content">
-                <p>
-                  <strong>{post.title}</strong>
-                  <br />
-                  {post.body}
-                  <br />
-                  <small>In <i>{post.category}</i>, by: {post.author}</small> <small> | {moment(post.timestamp).from()}</small>
-                </p>
-              </div>
-              <nav className="level is-mobile">
-                <div className="level-left">
-                  <a className="level-item">
-                  {post.commentCount}&nbsp; <span className="icon is-small"><i className="fa fa-comments"></i></span>
-                  </a>
-                </div>
-              </nav>
-            </div>
-          </article>
-        );
-          })}
-        </div>
-        </section>
+        {/* <PostsList posts={posts} /> */}
       </div>
     );
   }
 }
 
-function mapStateToProps({posts}){
-  return { posts };
-}
 
-// export default App;
-export default withRouter(connect(mapStateToProps, { fetchPosts, fetchCategoryPosts })(App));
+export default App;
+//export default withRouter(App);

@@ -21,20 +21,8 @@ const store = createStoreWithMiddleware(reducers,{},composeEnhancers)
 
 ReactDOM.render(
 <Provider store={store}>
-  <BrowserRouter basename="/" >
-    <div>
-      <Switch>
-        <Route exact path="/" component={App} />
-        <Route path="/posts/new" component={PostsNew} />
-        {/* <Route path="/:category/posts" component={App} /> */}
-        <Route exact path="/:category/posts" render={({match}) => (
-          <section>
-            <h1>{match.params.category}</h1>
-            <App match={match.params.category} />
-          </section>
-        )} />
-      </Switch>      
-    </div>
+  <BrowserRouter>
+      <App />
   </BrowserRouter>
 </Provider>
 , document.getElementById('root'));
