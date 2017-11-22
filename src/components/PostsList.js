@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import moment from 'moment';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchPosts, fetchCategoryPosts } from '../actions';
+import Post from './Post';
 
 class PostsList extends Component {
 
@@ -28,23 +28,23 @@ class PostsList extends Component {
     console.log("Match params is, ", this.props.match.params.category);
     
 
-      // The response is an object with categories as a key and value being an array. 
-  const category_response = {
-    "categories": [
-        {
-            "name": "react",
-            "path": "react"
-        },
-        {
-            "name": "redux",
-            "path": "redux"
-        },
-        {
-            "name": "udacity",
-            "path": "udacity"
-        }
-    ]
-}
+    // The response is an object with categories as a key and value being an array. 
+    const category_response = {
+      "categories": [
+          {
+              "name": "react",
+              "path": "react"
+          },
+          {
+              "name": "redux",
+              "path": "redux"
+          },
+          {
+              "name": "udacity",
+              "path": "udacity"
+          }
+      ]
+    }
 
 
     
@@ -91,47 +91,19 @@ class PostsList extends Component {
             <hr/>          
           </div>
         </section>
-      
-      <section>
-        <div className="container">
-          {_.map(posts, post => {
-          return (
-          <article key={post.id} className="media">
-            <figure className="media-left votebox">
-              <p className="has-text-centered">
-              <span className="icon"><i className="fa fa-caret-up fa-3x"></i></span>
-              </p>
-              <p className="has-text-centered has-text-info is-size-4">
-              {post.voteScore}
-              </p>
-              <p className="has-text-centered">
-              <span className="icon"><i className="fa fa-caret-down fa-3x"></i></span>
-              </p>
-
-            </figure>
-            <div className="media-content">
-              <div className="content">
-                <p>
-                  <strong>{post.title}</strong>
-                  <br />
-                  {post.body}
-                  <br />
-                  <small>In <i>{post.category}</i>, by: {post.author}</small> <small> | {moment(post.timestamp).from()}</small>
-                </p>
-              </div>
-              <nav className="level is-mobile">
-                <div className="level-left">
-                  <a className="level-item">
-                  {post.commentCount}&nbsp; <span className="icon is-small"><i className="fa fa-comments"></i></span>
-                  </a>
-                </div>
-              </nav>
-            </div>
-          </article>
-          );
-          })}
-        </div>
-      </section>
+        <section>
+          <div className="container">
+            <ul>
+            {_.map(posts, post => {
+            return (
+                <li key={post.id}>
+                  <Post post={post} />
+                </li>
+            );
+            })}
+            </ul>
+          </div>
+        </section>
       </div>      
     );
   }
