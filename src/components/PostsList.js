@@ -1,14 +1,90 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import moment from 'moment';
+import { BrowserRouter, Route, Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { fetchPosts } from '../actions';
+
+
 
 class PostsList extends Component {
+
+  componentDidMount() {
+    this.props.match.params.category ? "undefined" : this.props.fetchPosts();
+  }
+
 
   render() {
 
     const { posts } = this.props;
+    console.log("Match params is, ", this.props.match.params.category);
+    
+
+      // The response is an object with categories as a key and value being an array. 
+  const category_response = {
+    "categories": [
+        {
+            "name": "react",
+            "path": "react"
+        },
+        {
+            "name": "redux",
+            "path": "redux"
+        },
+        {
+            "name": "udacity",
+            "path": "udacity"
+        }
+    ]
+}
+
+
     
     return(
+      <div>
+        <section>
+          <div className="container">
+            <nav className="level">
+              <div className="level-item has-text-centered">
+                <p className="level-item"><Link to="/">ALL</Link></p>
+              </div>
+            {category_response["categories"].map(cat => {
+              return (
+                <div key={cat.path} className="level-item has-text-centered">
+                  <p className="level-item"><Link to={`/${cat.path}/posts`}>{cat.name}</Link></p>
+                </div>
+              )
+            })}
+            </nav>
+            <hr />
+          </div>
+        </section>
+        <section>
+          <div className="container">
+            <nav className="level">
+              <div className="level-left">
+                <div className="level-item">
+                <p className="control has-icons-left">
+                  <span className="select">
+                    <select>
+                      <option>Votescore</option>
+                      <option>Post Date</option>
+                    </select>
+                  </span>
+                  <span className="icon is-small is-left">
+                    <i className="fa fa-filter"></i>
+                  </span>
+                </p>
+                </div>
+              </div>
+              <div className="level-right">
+                <div className="level-item"><a className="button is-success">New Post</a></div>
+              </div>
+            </nav>
+            <hr/>          
+          </div>
+        </section>
+      
       <section>
         <div className="container">
           {_.map(posts, post => {
@@ -48,9 +124,15 @@ class PostsList extends Component {
           );
           })}
         </div>
-      </section>      
+      </section>
+      </div>      
     );
   }
 }
 
-export default PostsList;
+function mapStateToProps({ posts }){ // ES6: equivalent to state here and then const posts = state.posts in the body.
+  return { posts }; // ES6 as opposed to posts:posts
+}
+
+// export default App;
+export default withRouter(connect(mapStateToProps, { fetchPosts })(PostsList));

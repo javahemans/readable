@@ -21,9 +21,7 @@ const store = createStoreWithMiddleware(reducers,{},composeEnhancers)
 ReactDOM.render(
 <Provider store={store}>
   <BrowserRouter>
-    <div>
-      <Route exact path="/" component={App} />
-    </div>
+      <Route component={App} />
   </BrowserRouter>
 </Provider>
 , document.getElementById('root'));
