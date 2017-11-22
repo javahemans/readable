@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import './App.css';
 import moment from 'moment';
 // import { connect } from 'react-redux';
-import { fetchPosts } from '../actions';
+// import { fetchPosts } from '../actions';
 import PostsList from './PostsList';
 import _ from 'lodash';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { Route, withRouter} from 'react-router-dom';
 
 window._ = _; // Debugging lodash in console.
 window.moment = moment; // Debugging moment in console.
@@ -37,10 +37,11 @@ class App extends Component {
             </p>
           </div>
         </section>
-        <Route exact path ='/' component={PostsList} />
-        <Route exact path="/:category/posts" render={({match, location}) => (
+          <Route exact path ='/' component={PostsList} />
+          <Route path ='/:category/posts' component={PostsList} />
+        {/* <Route exact path="/:category/posts" render={({match, location}) => (
             <PostsList match={match} location={location}  />
-        )} />
+        )} /> */}
 
         {/* <PostsList posts={posts} /> */}
       </div>
@@ -49,5 +50,5 @@ class App extends Component {
 }
 
 
-// export default App;
 export default App;
+//export default withRouter(App);

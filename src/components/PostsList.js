@@ -1,16 +1,27 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import moment from 'moment';
-import { BrowserRouter, Route, Link, withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchPosts } from '../actions';
-
-
+import { fetchPosts, fetchCategoryPosts } from '../actions';
 
 class PostsList extends Component {
 
+
+  fetchData = () => {
+    this.props.match.params.category ? this.props.fetchCategoryPosts(this.props.match.params.category) : this.props.fetchPosts();
+    
+  }
   componentDidMount() {
-    this.props.match.params.category ? "undefined" : this.props.fetchPosts();
+
+    this.fetchData()
+  }
+
+  componentDidUpdate(prevProps){
+    console.log( prevProps.match, this.props.match)
+    if( prevProps.match.url!== this.props.match.url){
+      this.fetchData();
+    }
   }
 
 
@@ -135,4 +146,4 @@ function mapStateToProps({ posts }){ // ES6: equivalent to state here and then c
 }
 
 // export default App;
-export default withRouter(connect(mapStateToProps, { fetchPosts })(PostsList));
+export default  withRouter( connect(mapStateToProps, { fetchPosts, fetchCategoryPosts })(PostsList) );
