@@ -26,7 +26,13 @@ ReactDOM.render(
       <Switch>
         <Route exact path="/" component={App} />
         <Route path="/posts/new" component={PostsNew} />
-        <Route path="/:category/posts" component={App} />
+        {/* <Route path="/:category/posts" component={App} /> */}
+        <Route exact path="/:category/posts" render={({match}) => (
+          <section>
+            <h1>{match.params.category}</h1>
+            <App match={match.params.category} />
+          </section>
+        )} />
       </Switch>      
     </div>
   </BrowserRouter>
