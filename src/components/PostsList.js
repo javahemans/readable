@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchPosts, fetchCategoryPosts } from '../actions';
-import Post from './Post';
+import PostItem from './PostItem';
 
 class PostsList extends Component {
 
@@ -95,7 +95,7 @@ class PostsList extends Component {
             {_.map(posts, post => {
             return (
                 <li className="postItem" key={post.id}>
-                  <Post post={post} />
+                  <PostItem post={post} />
                 </li>
             );
             })}

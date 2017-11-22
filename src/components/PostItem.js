@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
+import PostDetail from './post_detail';
 
-
-class Post extends Component {
+class PostItem extends Component {
 
   handleClick = () => {
       console.log("HandleClick here");
@@ -29,7 +29,7 @@ class Post extends Component {
 
         <div className="media-content">
           <div className="content" onClick={this.handleClick}>
-            <Link to={`/posts/{post.title}`}>
+            <Link to={`/posts/${post.id}`}>
             <p>
               <strong>{post.title}</strong>
               <br />
@@ -55,4 +55,4 @@ class Post extends Component {
   }
 }
 
-export default Post;
+export default PostItem;
