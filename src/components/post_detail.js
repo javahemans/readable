@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { fetchPostDetail } from '../actions';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import moment from 'moment';
+import { Link } from 'react-router-dom';
 
 
 class PostDetail extends Component {
@@ -27,9 +28,45 @@ class PostDetail extends Component {
     console.log("Post Detail Page", this.props.match.params.id, posts);
     
     return (
-      <div>
-      <h1>I am the posts detail page</h1>
-      <h2>The post you are reading is has this URL param: {posts.title}</h2>
+      <div className="container">
+      <article key={posts.id} className="media">
+        <figure className="media-left votebox">
+          <p className="has-text-centered">
+          <span className="icon"><i className="fa fa-caret-up fa-3x"></i></span>
+          </p>
+          <p className="has-text-centered has-text-info is-size-4">
+          {posts.voteScore}
+          </p>
+          <p className="has-text-centered">
+          <span className="icon"><i className="fa fa-caret-down fa-3x"></i></span>
+          </p>
+        </figure>
+
+        <div className="media-content">
+          <div className="content" onClick={this.handleClick}>
+            <Link to={`/posts/${posts.id}`}>
+            <p>
+              <strong>{posts.title}</strong>
+              <br />
+              {posts.body}
+            </p>
+            </Link>
+            <p>
+              <small>In <i>{posts.category}</i>, by: {posts.author}</small> <small> | {moment(posts.timestamp).from()}</small>
+            </p>
+          </div>
+
+          <nav className="level is-mobile">
+            <div className="level-left">
+              <a className="level-item">
+              {posts.commentCount}&nbsp; <span className="icon is-small"><i className="fa fa-comments"></i></span>
+              </a>
+            </div>
+          </nav>
+        </div>
+
+      </article>
+
       </div>
     );
   }
