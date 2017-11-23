@@ -2,6 +2,7 @@ import axios from 'axios';
 
 export const FETCH_POSTS = 'fetch_posts';
 export const FETCH_CATEGORY_POSTS = 'fetch_category_posts';
+export const FETCH_POST_DETAIL = 'fetch_post_detail';
 
 const ROOT_URL = 'http://localhost:3001';
 
@@ -28,4 +29,13 @@ export function fetchCategoryPosts(category){
       type: FETCH_CATEGORY_POSTS,
       payload: request
     }
-  }
+}
+
+export function fetchPostDetail(id){
+  const request = apiRequest.get(`${ROOT_URL}/posts/${id}`);
+    
+    return {
+      type: FETCH_POST_DETAIL,
+      payload: request
+    }
+}
