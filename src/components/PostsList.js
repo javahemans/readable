@@ -78,7 +78,7 @@ class PostsList extends Component {
                 <div className="level-item">
                 <p className="control has-icons-left">
                   <span className="select">
-                    <select>
+                    <select onChange={() => {console.log("Select Change Detected!")}}>
                       <option>Votescore</option>
                       <option>Post Date</option>
                     </select>
@@ -99,7 +99,7 @@ class PostsList extends Component {
           <div className="container">
             {console.log("In PostLists, prior to map, posts is: ", posts)}
             <ul>
-            {_.map(posts, (value, postId) => {
+            {_.map(posts["lists"], (value, postId) => {
               console.log("PostList Iterator, post is: ", value, postId);
             return (
                 <li className="postItem" key={postId}>

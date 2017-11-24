@@ -25,14 +25,15 @@ class PostDetail extends Component {
   render() {
     const { posts } = this.props;
     const { id } = this.props.match.params;
-    const post = posts[id];
-    
-    console.log("Post Detail Page", this.props.match.params.id, posts, post);
     
     // Is this the correct way to prevent loading data too early?
-    if (!post) {
+    if (!posts) {
       return (<div>Loading</div>);
-    }
+    } 
+
+    const post = posts["lists"][id];
+    console.log("Post Detail Page", this.props.match.params.id, posts, post);
+
 
     return (
       <div className="container">
