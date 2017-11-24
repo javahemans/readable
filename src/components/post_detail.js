@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { fetchPostDetail } from '../actions';
+import { fetchPostDetail, votePost } from '../actions';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
-
 
 class PostDetail extends Component {
 
@@ -40,13 +39,13 @@ class PostDetail extends Component {
       <article key={post.id} className="media">
         <figure className="media-left votebox">
           <p className="has-text-centered">
-          <span className="icon"><i className="fa fa-caret-up fa-3x"></i></span>
+          <span className="icon" onClick={() => this.props.votePost("upVote", post.id)}><i className="fa fa-caret-up fa-3x"></i></span>
           </p>
           <p className="has-text-centered has-text-info is-size-4">
           {post.voteScore}
           </p>
           <p className="has-text-centered">
-          <span className="icon"><i className="fa fa-caret-down fa-3x"></i></span>
+          <span className="icon" onClick={() => this.props.votePost("downVote", post.id)}><i className="fa fa-caret-down fa-3x"></i></span>
           </p>
         </figure>
 
@@ -85,4 +84,4 @@ function mapStateToProps({ posts }){ // ES6: equivalent to state here and then c
 }
 
 // export default App;
-export default  withRouter( connect(mapStateToProps, { fetchPostDetail })(PostDetail) );
+export default  withRouter( connect(mapStateToProps, { fetchPostDetail, votePost })(PostDetail) );
