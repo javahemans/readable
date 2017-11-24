@@ -17,7 +17,7 @@ class PostDetail extends Component {
   }
 
   componentDidUpdate(prevProps){
-    console.log(prevProps.match, this.props.match)
+    // console.log(prevProps.match, this.props.match)
     if( prevProps.match.url!== this.props.match.url){
       this.fetchData();
     }
@@ -25,17 +25,25 @@ class PostDetail extends Component {
 
   render() {
     const { posts } = this.props;
-    console.log("Post Detail Page", this.props.match.params.id, posts);
+    const { id } = this.props.match.params;
+    const post = posts[id];
     
+    console.log("Post Detail Page", this.props.match.params.id, posts, post);
+    
+    // Is this the correct way to prevent loading data too early?
+    if (!post) {
+      return (<div>Loading</div>);
+    }
+
     return (
       <div className="container">
-      <article key={posts.id} className="media">
+      <article key={post.id} className="media">
         <figure className="media-left votebox">
           <p className="has-text-centered">
           <span className="icon"><i className="fa fa-caret-up fa-3x"></i></span>
           </p>
           <p className="has-text-centered has-text-info is-size-4">
-          {posts.voteScore}
+          {post.voteScore}
           </p>
           <p className="has-text-centered">
           <span className="icon"><i className="fa fa-caret-down fa-3x"></i></span>
@@ -44,22 +52,22 @@ class PostDetail extends Component {
 
         <div className="media-content">
           <div className="content" onClick={this.handleClick}>
-            <Link to={`/posts/${posts.id}`}>
+            <Link to={`/posts/${post.id}`}>
             <p>
-              <strong>{posts.title}</strong>
+              <strong>{post.title}</strong>
               <br />
-              {posts.body}
+              {post.body}
             </p>
             </Link>
             <p>
-              <small>In <i>{posts.category}</i>, by: {posts.author}</small> <small> | {moment(posts.timestamp).from()}</small>
+              <small>In <i>{post.category}</i>, by: {post.author}</small> <small> | {moment(post.timestamp).from()}</small>
             </p>
           </div>
 
           <nav className="level is-mobile">
             <div className="level-left">
               <a className="level-item">
-              {posts.commentCount}&nbsp; <span className="icon is-small"><i className="fa fa-comments"></i></span>
+              {post.commentCount}&nbsp; <span className="icon is-small"><i className="fa fa-comments"></i></span>
               </a>
             </div>
           </nav>

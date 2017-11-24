@@ -2,7 +2,11 @@ import axios from 'axios';
 
 export const FETCH_POSTS = 'fetch_posts';
 export const FETCH_CATEGORY_POSTS = 'fetch_category_posts';
+// The FETCHPOSTS logic above can be combined... if category supplied the use that. 
+// Does it help to have to have a separate action creator to make things clear?
+
 export const FETCH_POST_DETAIL = 'fetch_post_detail';
+export const VOTE_POST = 'vote_post';
 
 const ROOT_URL = 'http://localhost:3001';
 
@@ -23,8 +27,10 @@ export function fetchPosts(){
 }
 
 export function fetchCategoryPosts(category){
-  const request = apiRequest.get(`${ROOT_URL}/${category}/posts`);
-    
+  const request = apiRequest.get(`${ROOT_URL}/${category}/posts`)
+  // const request = _.filter(request1, (o) => { return o.category === category});
+  // console.log("Fetch Category Action Creator: ", category, request1, request);
+  
     return {
       type: FETCH_CATEGORY_POSTS,
       payload: request
@@ -36,6 +42,18 @@ export function fetchPostDetail(id){
     
     return {
       type: FETCH_POST_DETAIL,
+      payload: request
+    }
+}
+
+export function votePost(voteDirection, id){
+  const params = 
+  { "option" : voteDirection }
+  // const request = "voteDir request"
+  const request = apiRequest.post(`${ROOT_URL}/posts/${id}`, params);
+  console.log("votePost Action Creator request");  
+    return {
+      type: VOTE_POST,
       payload: request
     }
 }

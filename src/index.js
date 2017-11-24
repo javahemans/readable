@@ -7,7 +7,7 @@ import '../node_modules/bulma/css/bulma.css';
 import { BrowserRouter } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware } from 'redux'; //Compose not used, still works.
 import ReduxPromise from 'redux-promise';
 import reducers from './reducers'
 

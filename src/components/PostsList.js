@@ -16,7 +16,7 @@ class PostsList extends Component {
   }
 
   componentDidUpdate(prevProps){
-    console.log(prevProps.match, this.props.match)
+    // console.log(prevProps.match, this.props.match)
     if( prevProps.match.url!== this.props.match.url){
       this.fetchData();
     }
@@ -91,11 +91,13 @@ class PostsList extends Component {
         </section>
         <section>
           <div className="container">
+            {console.log("In PostLists, prior to map, posts is: ", posts)}
             <ul>
-            {_.map(posts, post => {
+            {_.map(posts, (value, postId) => {
+              console.log("PostList Iterator, post is: ", value, postId);
             return (
-                <li className="postItem" key={post.id}>
-                  <PostItem post={post} />
+                <li className="postItem" key={postId}>
+                  <PostItem post={value} />
                 </li>
             );
             })}

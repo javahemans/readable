@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import { votePost } from '../actions';
+import { connect } from 'react-redux';
+
 
 class PostItem extends Component {
 
-  handleClick = () => {
-      console.log("HandleClick here");
+  // This will be moved to Redux and passed down as a prop.
+  handleLocalClick = () => {
+      console.log("HandleLocalClick Triggered. This should be a prop via redux");
   }
 
   render(){
@@ -16,7 +20,7 @@ class PostItem extends Component {
       <article key={post.id} className="media">
         <figure className="media-left votebox">
           <p className="has-text-centered">
-          <span className="icon"><i className="fa fa-caret-up fa-3x"></i></span>
+          <span className="icon" onClick={() => this.props.votePost("upVote", post.id)}><i className="fa fa-caret-up fa-3x"></i></span>
           </p>
           <p className="has-text-centered has-text-info is-size-4">
           {post.voteScore}
@@ -54,4 +58,9 @@ class PostItem extends Component {
   }
 }
 
-export default PostItem;
+function mapStateToProps({ posts }){ // ES6: equivalent to state here and then const posts = state.posts in the body.
+  return { posts }; // ES6 as opposed to posts:posts
+}
+
+// export default App;
+export default  withRouter( connect(mapStateToProps, { votePost })(PostItem) );
