@@ -15,24 +15,24 @@ export default function (state = {}, action) {
       // console.log("FETCH_POSTS:R ");
       // const y =  {...state, ...postData};
       // console.log("Y is: ", y);
-      return action.payload.data;
-      // return {...state, ...postData};
+      // return action.payload.data;
+      return {...state, ...postData};
 
     case FETCH_CATEGORY_POSTS: 
       const postCategoryData = _.mapKeys(action.payload.data, 'id');
       console.log("FETCH_CATEGORY_POSTS:R", action.payload.data, postCategoryData, state);      
-      return action.payload.data;      
-      // return {...state, ...postCategoryData};
+      // return action.payload.data;      
+      return {...postCategoryData}; // Q: Here we are overwriting the state with a new result set..
       
     case FETCH_POST_DETAIL: 
       const postDetailData = _.mapKeys([action.payload.data], 'id');    
-      console.log("FETCH_POST_DETAIL:R ", postDetailData, action.payload.data);
-      return postDetailData;
-      // return {...state, ...postDetailData};
+      console.log("FETCH_POST_DETAIL:R ", action.payload.data, postDetailData, state);
+      // return postDetailData;
+      return {...state, ...postDetailData};
 
     case VOTE_POST: 
-      const postVoteData = _.mapKeys(action.payload.data, 'id');    
-      console.log("VOTE_POST:R ", action.payload.data, state);
+      const postVoteData = _.mapKeys([action.payload.data], 'id');    
+      console.log("VOTE_POST:R ", action.payload.data, postVoteData, state);
       // return postVoteData;
       return {...state, ...postVoteData};
 

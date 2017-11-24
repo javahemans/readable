@@ -45,6 +45,12 @@ class PostsList extends Component {
           }
       ]
     }
+
+    if (!posts) {
+      return (
+        <div>Loading</div>
+      );
+    }
     
     return(
       <div>
