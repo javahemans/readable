@@ -3,7 +3,7 @@ import PostsReducer from './reducer_posts';
 
 const rootReducer = combineReducers({
   // state: (state = {}) => state 
-  posts: PostsReducer
+  posts: PostsReducer,
 })
 
 export default rootReducer;

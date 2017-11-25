@@ -2,17 +2,18 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchPosts, fetchCategoryPosts, orderPostsBy } from '../actions';
+import { fetchPosts, fetchCategoryPosts, orderPostsBy, getCategories } from '../actions';
 import PostItem from './PostItem';
 
 class PostsList extends Component {
 
   fetchData = () => {
     this.props.match.params.category ? this.props.fetchCategoryPosts(this.props.match.params.category) : this.props.fetchPosts();
+    this.props.getCategories();
   }
 
   componentDidMount() {
-    this.fetchData()
+    this.fetchData();
   }
 
   componentDidUpdate(prevProps){
@@ -25,36 +26,42 @@ class PostsList extends Component {
   render() {
 
     const { posts } = this.props;
+    console.log("Posts is: ", posts);
+
     // console.log("Match params is, ", this.props.match.params.category);
     
 
     // The response is an object with categories as a key and value being an array. 
-    const category_response = {
-      "categories": [
-          {
-              "name": "react",
-              "path": "react"
-          },
-          {
-              "name": "redux",
-              "path": "redux"
-          },
-          {
-              "name": "udacity",
-              "path": "udacity"
-          }
-      ]
-    }
+    // const category_response = {
+    //   "categories": [
+    //       {
+    //           "name": "react",
+    //           "path": "react"
+    //       },
+    //       {
+    //           "name": "redux",
+    //           "path": "redux"
+    //       },
+    //       {
+    //           "name": "udacity",
+    //           "path": "udacity"
+    //       }
+    //   ]
+    // }
 
-    if (!posts) {
+    // How can I ensure that every property within posts has been received? (not undefined?) Do I have to be this explicit?
+    // I was getting undefined on the categories attribute within posts until I checked it explicitly.
+    
+    if (!posts || !posts["categories"]) {
       return (
         <div>Loading</div>
       );
     }
-    
+ 
     const orderedPosts = _.orderBy(posts["lists"], posts.orderBy, 'desc' );
     // console.log("Ordered posts baby: ",orderedPosts, posts.orderBy )
-
+    console.log("Posts[Categories] is: ", posts["categories"]);
+    
     return(
       <div>
         <section>
@@ -63,7 +70,7 @@ class PostsList extends Component {
               <div className="level-item has-text-centered">
                 <p className="level-item"><Link to="/">ALL</Link></p>
               </div>
-            {category_response["categories"].map(cat => {
+            {posts["categories"].map(cat => {
               return (
                 <div key={cat.path} className="level-item has-text-centered">
                   <p className="level-item"><Link to={`/${cat.path}/posts`}>{cat.name}</Link></p>
@@ -122,4 +129,4 @@ function mapStateToProps({ posts }){ // ES6: equivalent to state here and then c
 }
 
 // export default App;
-export default  withRouter( connect(mapStateToProps, { fetchPosts, fetchCategoryPosts, orderPostsBy })(PostsList) );
+export default  withRouter( connect(mapStateToProps, { fetchPosts, fetchCategoryPosts, orderPostsBy, getCategories })(PostsList) );

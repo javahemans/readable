@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { FETCH_POSTS, FETCH_CATEGORY_POSTS, FETCH_POST_DETAIL, VOTE_POST, ORDER_POSTS_BY } from '../actions';
+import { FETCH_POSTS, FETCH_CATEGORY_POSTS, FETCH_POST_DETAIL, VOTE_POST, ORDER_POSTS_BY, GET_CATEGORIES } from '../actions';
 
 const initialState = {
   orderBy : "voteScore"
@@ -7,6 +7,10 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch(action.type){
+
+    case GET_CATEGORIES: 
+      console.log("GET_CATEGORIES:R", action.payload.data["categories"], state);      
+      return {...state, categories: action.payload.data["categories"]};
 
     case FETCH_POSTS: 
       // console.log(action.payload.data);

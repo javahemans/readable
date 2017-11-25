@@ -8,6 +8,7 @@ export const FETCH_CATEGORY_POSTS = 'fetch_category_posts';
 export const FETCH_POST_DETAIL = 'fetch_post_detail';
 export const VOTE_POST = 'vote_post';
 export const ORDER_POSTS_BY = 'order_posts_by';
+export const GET_CATEGORIES = 'get_categories';
 
 const ROOT_URL = 'http://localhost:3001';
 
@@ -17,6 +18,16 @@ const apiRequest = axios.create({
 
 // Here we're going to making a request to an API
 // We're using axios
+
+export function getCategories(){
+  const request = apiRequest.get(`${ROOT_URL}/categories`);
+
+  return {
+    type: GET_CATEGORIES,
+    payload: request
+  }
+}
+
 
 export function fetchPosts(){
   const request = apiRequest.get(`${ROOT_URL}/posts`);
