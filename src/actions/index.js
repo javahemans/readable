@@ -7,6 +7,7 @@ export const FETCH_CATEGORY_POSTS = 'fetch_category_posts';
 
 export const FETCH_POST_DETAIL = 'fetch_post_detail';
 export const VOTE_POST = 'vote_post';
+export const ORDER_POSTS_BY = 'order_posts_by';
 
 const ROOT_URL = 'http://localhost:3001';
 
@@ -56,4 +57,12 @@ export function votePost(voteDirection, id){
       type: VOTE_POST,
       payload: request
     }
+}
+
+export function orderPostsBy(order) {
+
+  return {
+    type: ORDER_POSTS_BY,
+    payload: order
+  }
 }

@@ -1,7 +1,11 @@
 import _ from 'lodash';
-import { FETCH_POSTS, FETCH_CATEGORY_POSTS, FETCH_POST_DETAIL, VOTE_POST } from '../actions';
+import { FETCH_POSTS, FETCH_CATEGORY_POSTS, FETCH_POST_DETAIL, VOTE_POST, ORDER_POSTS_BY } from '../actions';
 
-export default function (state = {}, action) {
+const initialState = {
+  orderBy : "voteScore"
+}
+
+export default function (state = initialState, action) {
   switch(action.type){
 
     case FETCH_POSTS: 
@@ -22,7 +26,7 @@ export default function (state = {}, action) {
       const postCategoryData = _.mapKeys(action.payload.data, 'id');
       console.log("FETCH_CATEGORY_POSTS:R", action.payload.data, postCategoryData, state);      
       // return action.payload.data;      
-      return {...state, lists: postCategoryData }; // Q: Here we are overwriting the state with a new result set..
+      return {...state, lists: postCategoryData }; // NB: Here we are overwriting the state with a new result set..
       
     case FETCH_POST_DETAIL: 
       // NB: action.payload.data here returns an object, so we coerce it back into an array
@@ -37,6 +41,9 @@ export default function (state = {}, action) {
       console.log("VOTE_POST:R ", action.payload.data, postVoteData, state);
       // return postVoteData;
       return {...state, lists: {...state.lists, ...postVoteData }};
+
+    case ORDER_POSTS_BY: 
+      return {...state, orderBy: action.payload};
 
     default: 
       return state;

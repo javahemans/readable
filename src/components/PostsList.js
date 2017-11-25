@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchPosts, fetchCategoryPosts } from '../actions';
+import { fetchPosts, fetchCategoryPosts, orderPostsBy } from '../actions';
 import PostItem from './PostItem';
 
 class PostsList extends Component {
@@ -25,7 +25,7 @@ class PostsList extends Component {
   render() {
 
     const { posts } = this.props;
-    console.log("Match params is, ", this.props.match.params.category);
+    // console.log("Match params is, ", this.props.match.params.category);
     
 
     // The response is an object with categories as a key and value being an array. 
@@ -52,6 +52,9 @@ class PostsList extends Component {
       );
     }
     
+    const orderedPosts = _.orderBy(posts["lists"], posts.orderBy, 'desc' );
+    // console.log("Ordered posts baby: ",orderedPosts, posts.orderBy )
+
     return(
       <div>
         <section>
@@ -78,9 +81,9 @@ class PostsList extends Component {
                 <div className="level-item">
                 <p className="control has-icons-left">
                   <span className="select">
-                    <select onChange={() => {console.log("Select Change Detected!")}}>
-                      <option>Votescore</option>
-                      <option>Post Date</option>
+                    <select value={posts.orderBy} onChange={(e) => this.props.orderPostsBy(e.target.value)}>
+                      <option value="voteScore" >Votes</option>
+                      <option value="timestamp">Date Posted</option>
                     </select>
                   </span>
                   <span className="icon is-small is-left">
@@ -97,13 +100,12 @@ class PostsList extends Component {
         </section>
         <section>
           <div className="container">
-            {console.log("In PostLists, prior to map, posts is: ", posts)}
+            {/* {console.log("In PostLists, prior to map, posts is: ", posts, orderedPosts)} */}
             <ul>
-            {_.map(posts["lists"], (value, postId) => {
-              console.log("PostList Iterator, post is: ", value, postId);
+            {_.map(orderedPosts, (p) => {
             return (
-                <li className="postItem" key={postId}>
-                  <PostItem post={value} />
+                <li className="postItem" key={p.id}>
+                  <PostItem post={p} />
                 </li>
             );
             })}
@@ -120,4 +122,4 @@ function mapStateToProps({ posts }){ // ES6: equivalent to state here and then c
 }
 
 // export default App;
-export default  withRouter( connect(mapStateToProps, { fetchPosts, fetchCategoryPosts })(PostsList) );
+export default  withRouter( connect(mapStateToProps, { fetchPosts, fetchCategoryPosts, orderPostsBy })(PostsList) );
