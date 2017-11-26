@@ -29,7 +29,7 @@ class App extends Component {
             </button>
           </div>
         </nav>
-        <section className="section">
+        <section className="section is-hidden-mobile">
           <div className="container">
             <h1 className="title">
               Readable
@@ -43,6 +43,7 @@ class App extends Component {
           <div className="container">
             <nav className="level">
               <div className="level-left">
+                <div className="level-item"><Link to="/" className="button">Home</Link></div>
               </div>
               <div className="level-right">
                 <div className="level-item"><Link to="/posts/new" className="button is-success">New Post</Link></div>

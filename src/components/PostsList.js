@@ -26,32 +26,12 @@ class PostsList extends Component {
   render() {
 
     const { posts } = this.props;
-    console.log("Posts is: ", posts);
-
+    
     // console.log("Match params is, ", this.props.match.params.category);
     
-
-    // The response is an object with categories as a key and value being an array. 
-    // const category_response = {
-    //   "categories": [
-    //       {
-    //           "name": "react",
-    //           "path": "react"
-    //       },
-    //       {
-    //           "name": "redux",
-    //           "path": "redux"
-    //       },
-    //       {
-    //           "name": "udacity",
-    //           "path": "udacity"
-    //       }
-    //   ]
-    // }
-
     // How can I ensure that every property within posts has been received? (not undefined?) Do I have to be this explicit?
     // I was getting undefined on the categories attribute within posts until I checked it explicitly.
-    
+
     if (!posts || !posts["categories"]) {
       return (
         <div>Loading</div>
