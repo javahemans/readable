@@ -11,12 +11,12 @@ class PostsNew extends Component {
         <label className="label">{field.label}</label>
         <div className="control">
           <input 
-            className="input"
+            className={`input ${field.meta.touched && field.meta.error ? 'is-danger' : ''}`}
             type="text"
             {...field.input}
             />
         </div>
-        <p className="help">{field.meta.error}</p>
+        <p className="help is-danger">{field.meta.touched ? field.meta.error : '' }</p>
       </div>
     </div>
     );
@@ -29,24 +29,31 @@ class PostsNew extends Component {
         <label className="label">{field.label}</label>
         <div className="control">
           <div className="select">
-            <select>
-              <option>{field.label}</option>
-              <option>With options</option>
+            <select {...field.input}>
+              <option />
+              <option>No 1</option>
             </select>
           </div>
         </div>
-        <p className="help">{field.meta.error}</p>      
+        <p className="help is-danger">{field.meta.error}</p>      
       </div>
     </div>
     );
   }
 
+  onSubmit(values){
+    console.log(values);
+  }
+
   render() {
+
+    const { handleSubmit } = this.props; 
+
     return (
       <div className="container">
         <div className="title">New Post</div>
         <br/>
-        <form>
+        <form onSubmit={handleSubmit(this.onSubmit.bind(this))} >
           <Field 
             label="Post Title"
             name="title"
