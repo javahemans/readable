@@ -27,7 +27,7 @@ class PostDetail extends Component {
     const { id } = this.props.match.params;
     
     // Is this the correct way to prevent loading data too early?
-    if (!posts) {
+    if (!posts || !posts["lists"]) {
       return (<div>Loading</div>);
     } 
 
@@ -72,7 +72,11 @@ class PostDetail extends Component {
             </div>
           </nav>
         </div>
-
+        <div className="media-right">
+          <button className="delete"></button>
+          &nbsp;&nbsp;&nbsp;
+          <i className="fa fa-pencil" aria-hidden="true"></i>
+        </div>
       </article>
 
       </div>
