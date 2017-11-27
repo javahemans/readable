@@ -8,8 +8,9 @@ import _ from 'lodash';
 import { Route, Switch, Link } from 'react-router-dom';
 import PostsNew from './posts_new';
 import PostDetail from './post_detail';
+import { v4 } from 'uuid';
 
-
+window.v4 = v4;
 window._ = _; // Debugging lodash in console.
 window.moment = moment; // Debugging moment in console.
 

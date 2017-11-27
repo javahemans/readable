@@ -38,3 +38,7 @@ li.postItem {
 li.postItem:nth-of-type(odd) {
   background: aliceblue;
 }
+
+form.uform {
+  margin: 0 0.5em;
+}

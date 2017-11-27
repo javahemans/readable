@@ -1,17 +1,38 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { getCategories, createPost } from '../actions';
+import _ from 'lodash';
+
 
 class PostsNew extends Component {
+
+
+  fetchData = () => {
+    this.props.getCategories();
+  }
+
+  componentDidMount() {
+    this.fetchData();
+  }
+
+  componentDidUpdate(prevProps){
+    // console.log(prevProps.match, this.props.match)
+    if( prevProps.match.url!== this.props.match.url){
+      this.fetchData();
+    }
+  }  
 
   renderField(field) {
 
     return (
     <div className="container">
       <div className="field">
-        <label className="label">{field.label}</label>
+        <label className="label is-medium">{field.label}</label>
         <div className="control">
           <input 
-            className={`input ${field.meta.touched && field.meta.error ? 'is-danger' : ''}`}
+            className={`input is-medium ${field.meta.touched && field.meta.error ? 'is-danger' : ''}`}
             type="text"
             {...field.input}
             />
@@ -23,37 +44,67 @@ class PostsNew extends Component {
   }
 
   renderSelect(field) {
+
     return (
     <div className="container">
       <div className="field">
-        <label className="label">{field.label}</label>
+        <label className="label is-medium">{field.label}</label>
         <div className="control">
-          <div className="select">
+          <div className={`is-medium select ${field.meta.touched && field.meta.error ? 'is-danger' : ''}`}>
             <select {...field.input}>
               <option />
-              <option>No 1</option>
+              {/* {_.map(posts["categories"], category => ( 
+                <option>{category.name}</option>
+              ))} */}
+              <option>react</option>
+              <option>redux</option>
+              <option>udacity</option>
             </select>
           </div>
         </div>
-        <p className="help is-danger">{field.meta.error}</p>      
+        <p className="help is-danger">{field.meta.touched ? field.meta.error : '' }</p>      
       </div>
     </div>
     );
   }
 
+  renderTextArea(field) {
+    
+        return (
+        <div className="container" >
+          <div className="field">
+            <label className="label is-medium ">{field.label}</label>
+            <div className="control">
+              <textarea {...field.input} className={`is-medium textarea ${field.meta.touched && field.meta.error ? 'is-danger' : ''}`}></textarea>
+            </div>
+            <p className="help is-danger">{field.meta.touched ? field.meta.error : '' }</p>          
+            </div>
+        </div>
+        );
+      }
+    
   onSubmit(values){
-    console.log(values);
+    // console.log(values);
+    this.props.createPost(values);
   }
 
   render() {
 
-    const { handleSubmit } = this.props; 
+    const { handleSubmit, posts } = this.props; 
+
+    if(!posts && !posts["categories"]) {
+      return (
+        <div>Loading</div>
+      )
+    }
+
+    console.log("This props categories in NewPost? ", this.props.posts["categories"]);
 
     return (
       <div className="container">
         <div className="title">New Post</div>
         <br/>
-        <form onSubmit={handleSubmit(this.onSubmit.bind(this))} >
+        <form className="uform" onSubmit={handleSubmit(this.onSubmit.bind(this))} >
           <Field 
             label="Post Title"
             name="title"
@@ -62,7 +113,7 @@ class PostsNew extends Component {
           <Field 
             label="Body"
             name="body"
-            component={this.renderField}
+            component={this.renderTextArea}
           />
           <Field 
             label="Author Name"
@@ -81,7 +132,7 @@ class PostsNew extends Component {
                 <button className="button is-link">Submit</button>
               </div>
               <div className="control">
-                <button className="button is-text">Cancel</button>
+                <Link to="/"><button className="button is-text">Cancel</button></Link>
               </div>
             </div>
           </div>
@@ -118,7 +169,17 @@ function validate(values) {
   return errors;
 }
 
-export default reduxForm({
-   validate,
-   form: 'PostsNewForm'
+
+function mapStateToProps({ posts }){ // ES6: equivalent to state here and then const posts = state.posts in the body.
+  return { posts }; // ES6 as opposed to posts:posts
+}
+
+
+PostsNew = withRouter(connect(mapStateToProps, { createPost, getCategories })(PostsNew))
+
+export default PostsNew =  reduxForm({
+  validate,
+  form: 'PostsNewForm'
 })(PostsNew);
+
+

@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { FETCH_POSTS, FETCH_CATEGORY_POSTS, FETCH_POST_DETAIL, VOTE_POST, ORDER_POSTS_BY, GET_CATEGORIES } from '../actions';
+import { FETCH_POSTS, FETCH_CATEGORY_POSTS, FETCH_POST_DETAIL, VOTE_POST, ORDER_POSTS_BY, GET_CATEGORIES, CREATE_POST } from '../actions';
 
 const initialState = {
   orderBy : "voteScore"
@@ -48,6 +48,9 @@ export default function (state = initialState, action) {
 
     case ORDER_POSTS_BY: 
       return {...state, orderBy: action.payload};
+
+    // case CREATE_POST:
+    //   return {...state, [action.payload.data}
 
     default: 
       return state;

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { v4 } from 'uuid';
 
 export const FETCH_POSTS = 'fetch_posts';
 export const FETCH_CATEGORY_POSTS = 'fetch_category_posts';
@@ -9,6 +10,7 @@ export const FETCH_POST_DETAIL = 'fetch_post_detail';
 export const VOTE_POST = 'vote_post';
 export const ORDER_POSTS_BY = 'order_posts_by';
 export const GET_CATEGORIES = 'get_categories';
+export const CREATE_POST = 'create_post';
 
 const ROOT_URL = 'http://localhost:3001';
 
@@ -75,5 +77,20 @@ export function orderPostsBy(order) {
   return {
     type: ORDER_POSTS_BY,
     payload: order
+  }
+}
+
+export function createPost(values) {
+
+  const id = v4();
+  const timestamp = Date.now();
+  const valuesPlus = {...values, id, timestamp }
+  console.log("valuesPlus is: ", valuesPlus);
+
+  const request = apiRequest.post(`${ROOT_URL}/posts`, valuesPlus);
+  
+  return {
+    type: CREATE_POST,
+    payload: valuesPlus
   }
 }
