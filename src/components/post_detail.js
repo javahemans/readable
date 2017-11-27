@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
+import PostsEdit from './posts_edit';
 
 class PostDetail extends Component {
 
@@ -75,7 +76,7 @@ class PostDetail extends Component {
         <div className="media-right">
           <button className="delete"></button>
           &nbsp;&nbsp;&nbsp;
-          <i className="fa fa-pencil" aria-hidden="true"></i>
+          <Link to={`/posts/${post.id}/edit`}><i className="fa fa-pencil" aria-hidden="true"></i></Link>
         </div>
       </article>
 

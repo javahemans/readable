@@ -80,14 +80,15 @@ export function orderPostsBy(order) {
   }
 }
 
-export function createPost(values) {
+export function createPost(values, callback) {
 
   const id = v4();
   const timestamp = Date.now();
   const valuesPlus = {...values, id, timestamp }
   console.log("valuesPlus is: ", valuesPlus);
 
-  const request = apiRequest.post(`${ROOT_URL}/posts`, valuesPlus);
+  const request = apiRequest.post(`${ROOT_URL}/posts`, valuesPlus)
+  .then(() => callback());
   
   return {
     type: CREATE_POST,

@@ -8,6 +8,8 @@ import _ from 'lodash';
 import { Route, Switch, Link } from 'react-router-dom';
 import PostsNew from './posts_new';
 import PostDetail from './post_detail';
+import PostsEdit from './posts_edit';
+
 import { v4 } from 'uuid';
 
 window.v4 = v4;
@@ -58,6 +60,7 @@ class App extends Component {
           <Route path ='/:category/posts' component={PostsList} />
           <Route exact path ='/posts/new' component={PostsNew} />
           <Route exact path ='/posts/:id' component={PostDetail} />
+          <Route exact path ='/posts/:id/edit' component={PostsEdit} />
 
         </Switch>
           {/* <Route exact path="/:category/posts" render={({match, location}) => (
