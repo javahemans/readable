@@ -92,6 +92,6 @@ export function createPost(values, callback) {
   
   return {
     type: CREATE_POST,
-    payload: valuesPlus
+    payload: request
   }
 }

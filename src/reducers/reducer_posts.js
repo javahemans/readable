@@ -49,8 +49,13 @@ export default function (state = initialState, action) {
     case ORDER_POSTS_BY: 
       return {...state, orderBy: action.payload};
 
-    // case CREATE_POST:
-    //   return {...state, [action.payload.data}
+    case CREATE_POST:
+      // This will never be called because we put a callback on CreatePost action creator. Is that valid?
+      // Is there a way or best pratice to link this reducer aspect to reduxForm createPost?
+      // const createPostResult = _.mapKeys([action.payload.data], 'id');        
+      console.log("CREATE_POST:R - Handled by ReduxForm so no action.payload here ", action, state);
+      return {...state};     
+      // return {...state, lists: {...state.lists, ...createPostResult}};
 
     default: 
       return state;

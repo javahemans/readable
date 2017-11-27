@@ -8,6 +8,12 @@ import _ from 'lodash';
 
 class PostsNew extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this.renderSelect = this.renderSelect.bind(this);
+
+  }
 
   fetchData = () => {
     this.props.getCategories();
@@ -53,12 +59,12 @@ class PostsNew extends Component {
           <div className={`is-medium select ${field.meta.touched && field.meta.error ? 'is-danger' : ''}`}>
             <select {...field.input}>
               <option />
-              {/* {_.map(posts["categories"], category => ( 
-                <option>{category.name}</option>
-              ))} */}
-              <option>react</option>
+              {_.map(this.props.posts["categories"], category => ( 
+                <option key={category.path}>{category.name}</option>
+              ))}
+              {/* <option>react</option>
               <option>redux</option>
-              <option>udacity</option>
+              <option>udacity</option> */}
             </select>
           </div>
         </div>

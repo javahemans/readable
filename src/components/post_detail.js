@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
-import PostsEdit from './posts_edit';
 
 class PostDetail extends Component {
 
@@ -16,16 +15,11 @@ class PostDetail extends Component {
     this.fetchData()
   }
 
-  componentDidUpdate(prevProps){
-    // console.log(prevProps.match, this.props.match)
-    if( prevProps.match.url!== this.props.match.url){
-      this.fetchData();
-    }
-  }
 
   render() {
-    const { posts } = this.props;
+
     const { id } = this.props.match.params;
+    const { posts } = this.props;
     
     // Is this the correct way to prevent loading data too early?
     if (!posts || !posts["lists"]) {
@@ -33,7 +27,8 @@ class PostDetail extends Component {
     } 
 
     const post = posts["lists"][id];
-    console.log("Post Detail Page", this.props.match.params.id, posts, post);
+
+    // console.log("Post Detail Page", this.props.match.params.id, posts, post);
 
 
     return (
@@ -85,7 +80,9 @@ class PostDetail extends Component {
   }
 }
 
-function mapStateToProps({ posts }){ // ES6: equivalent to state here and then const posts = state.posts in the body.
+function mapStateToProps({ posts }, ownProps ){ // ES6: equivalent to state here and then const posts = state.posts in the body.
+  // The rationale here for using ownProps is to just return the post requested, and not the entire {posts} object. But I
+  // can't get this logic to work.
   return { posts }; // ES6 as opposed to posts:posts
 }
 
