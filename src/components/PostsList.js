@@ -40,7 +40,7 @@ class PostsList extends Component {
  
     const orderedPosts = _.orderBy(posts["lists"], posts.orderBy, 'desc' );
     // console.log("Ordered posts baby: ",orderedPosts, posts.orderBy )
-    console.log("Posts[Categories] is: ", posts["categories"]);
+    // console.log("Posts[Categories] is: ", posts["categories"]);
     
     return(
       <div>

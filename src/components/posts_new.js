@@ -105,7 +105,7 @@ class PostsNew extends Component {
       )
     }
 
-    console.log("This props categories in NewPost? ", this.props.posts["categories"]);
+    // console.log("This props categories in NewPost? ", this.props.posts["categories"]);
 
     return (
       <div className="container">

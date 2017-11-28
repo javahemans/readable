@@ -23,6 +23,7 @@ class PostsEdit extends Component {
     this.fetchData();
   }
 
+
   renderField = (field) => {
 
     return (

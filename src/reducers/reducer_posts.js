@@ -9,7 +9,7 @@ export default function (state = initialState, action) {
   switch(action.type){
 
     case GET_CATEGORIES: 
-      console.log("GET_CATEGORIES:R", action.payload.data["categories"], state);      
+      // console.log("GET_CATEGORIES:R", action.payload.data["categories"], state);      
       return {...state, categories: action.payload.data["categories"]};
 
     case FETCH_POSTS: 

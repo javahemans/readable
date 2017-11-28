@@ -84,9 +84,9 @@ class PostDetail extends Component {
 }
 
 function mapStateToProps(state, ownProps ){ // ES6: equivalent to state here and then const posts = state.posts in the body.
-  // The rationale here for using ownProps is to just return the post requested, and not the entire {posts} object. But I
-  // can't get this logic to work.
-  // console.log("Debug: ", state);
+  // The rationale here for using ownProps is to just return the post requested, and not the entire {posts} object. 
+  // For examlpe, this page will have a match.params.id prop available in ownProps.
+  
   return {
     post: state.posts && state.posts["lists"] && state.posts["lists"][ownProps.match.params.id]
   };
