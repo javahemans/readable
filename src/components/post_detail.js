@@ -7,29 +7,32 @@ import { Link } from 'react-router-dom';
 
 class PostDetail extends Component {
 
-  fetchData = () => {
-    this.props.fetchPostDetail(this.props.match.params.id)
-  }
-
   componentDidMount() {
-    this.fetchData()
+    const { id } = this.props.match.params
+    this.props.fetchPostDetail(id);
   }
-
 
   render() {
 
-    const { id } = this.props.match.params;
-    const { posts } = this.props;
+    // const { id } = this.props.match.params;
+    // const { posts } = this.props;
     
     // Is this the correct way to prevent loading data too early?
-    if (!posts || !posts["lists"]) {
-      return (<div>Loading</div>);
-    } 
+    // if (!posts || !posts["lists"] || !posts["lists"][id]) {
+    //   return (<div>Loading</div>);
+    // } 
 
-    const post = posts["lists"][id];
+    // const post = posts["lists"][id];
 
     // console.log("Post Detail Page", this.props.match.params.id, posts, post);
 
+    const { post } = this.props;
+
+    if(!post) {
+      return (
+        <div>Null</div>
+      );
+    }
 
     return (
       <div className="container">
@@ -80,10 +83,13 @@ class PostDetail extends Component {
   }
 }
 
-function mapStateToProps({ posts }, ownProps ){ // ES6: equivalent to state here and then const posts = state.posts in the body.
+function mapStateToProps(state, ownProps ){ // ES6: equivalent to state here and then const posts = state.posts in the body.
   // The rationale here for using ownProps is to just return the post requested, and not the entire {posts} object. But I
   // can't get this logic to work.
-  return { posts }; // ES6 as opposed to posts:posts
+  // console.log("Debug: ", state);
+  return {
+    post: state.posts && state.posts["lists"] && state.posts["lists"][ownProps.match.params.id]
+  };
 }
 
 // export default App;

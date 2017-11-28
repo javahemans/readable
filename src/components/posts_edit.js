@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getCategories, createPost } from '../actions';
+import { getCategories, createPost, fetchPostDetail } from '../actions';
 import _ from 'lodash';
 
-
-class PostsNew extends Component {
+class PostsEdit extends Component {
 
   // constructor(props) {
   //   super(props);
@@ -15,19 +14,14 @@ class PostsNew extends Component {
   // }
 
   fetchData = () => {
+    const { id } = this.props.match.params
+    this.props.fetchPostDetail(id);    
     this.props.getCategories();
   }
 
   componentDidMount() {
     this.fetchData();
   }
-
-  componentDidUpdate(prevProps){
-    // console.log(prevProps.match, this.props.match)
-    if( prevProps.match.url!== this.props.match.url){
-      this.fetchData();
-    }
-  }  
 
   renderField = (field) => {
 
@@ -59,11 +53,8 @@ class PostsNew extends Component {
             <select {...field.input}>
               <option />
               {_.map(this.props.posts["categories"], category => ( 
-                <option key={category.path}>{category.name}</option>
+                <option key={category.path} value={category.path}>{category.name}</option>
               ))}
-              {/* <option>react</option>
-              <option>redux</option>
-              <option>udacity</option> */}
             </select>
           </div>
         </div>
@@ -90,9 +81,7 @@ class PostsNew extends Component {
     
   onSubmit = (values) => {
     // console.log(values);
-    this.props.createPost(values, () => {
-      this.props.history.push('/');
-    });
+    this.props.createPost(values);
   }
 
   render() {
@@ -105,11 +94,11 @@ class PostsNew extends Component {
       )
     }
 
-    console.log("This props categories in NewPost? ", this.props.posts["categories"]);
+    // console.log("This props categories in NewPost? ", this.props.posts["categories"]);
 
     return (
       <div className="container">
-        <div className="title">New Post</div>
+        <div className="title">Edit Post</div>
         <br/>
         <form className="uform" onSubmit={handleSubmit(this.onSubmit.bind(this))} >
           <Field 
@@ -177,16 +166,28 @@ function validate(values) {
 }
 
 
-function mapStateToProps({ posts }){ // ES6: equivalent to state here and then const posts = state.posts in the body.
-  return { posts }; // ES6 as opposed to posts:posts
+function mapStateToProps(state, ownProps){ // ES6: equivalent to state here and then const posts = state.posts in the body.
+    const resp = {
+      posts: state.posts,      
+      initialValues: state.posts && state.posts["lists"] && state.posts["lists"][ownProps.match.params.id],
+    };  
+    console.log("EDIT Debug: ", resp);    
+    return resp;
 }
 
 
-PostsNew = withRouter(connect(mapStateToProps, { createPost, getCategories })(PostsNew))
+PostsEdit = withRouter(connect(mapStateToProps, { createPost, getCategories, fetchPostDetail })(PostsEdit))
 
-export default PostsNew =  reduxForm({
+export default PostsEdit =  reduxForm({
   validate,
-  form: 'PostsNewForm'
-})(PostsNew);
+  form: 'PostsNewForm',
+  enableReinitialize: true,
+        initialValues: {
+        title : "hello",
+        body : "goodbye",
+        author : "ptharani",
+        category : "udacity"
+      }
+})(PostsEdit);
 
 

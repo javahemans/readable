@@ -89,7 +89,7 @@ export function createPost(values, callback) {
 
   const request = apiRequest.post(`${ROOT_URL}/posts`, valuesPlus)
   .then(() => callback());
-  
+  console.log("Line 92 request is: ", request );
   return {
     type: CREATE_POST,
     payload: request
