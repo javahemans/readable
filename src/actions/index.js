@@ -11,6 +11,7 @@ export const VOTE_POST = 'vote_post';
 export const ORDER_POSTS_BY = 'order_posts_by';
 export const GET_CATEGORIES = 'get_categories';
 export const CREATE_POST = 'create_post';
+export const EDIT_POST = 'edit_post';
 
 const ROOT_URL = 'http://localhost:3001';
 
@@ -65,7 +66,7 @@ export function votePost(voteDirection, id){
   { "option" : voteDirection }
   // const request = "voteDir request"
   const request = apiRequest.post(`${ROOT_URL}/posts/${id}`, params);
-  console.log("votePost Action Creator request");  
+  // console.log("votePost Action Creator request");  
     return {
       type: VOTE_POST,
       payload: request
@@ -85,13 +86,23 @@ export function createPost(values, callback) {
   const id = v4();
   const timestamp = Date.now();
   const valuesPlus = {...values, id, timestamp }
-  console.log("valuesPlus is: ", valuesPlus);
+  // console.log("valuesPlus is: ", valuesPlus);
 
   const request = apiRequest.post(`${ROOT_URL}/posts`, valuesPlus)
   .then(() => callback());
-  console.log("Line 92 request is: ", request );
+  // console.log("Line 92 request is: ", request );
   return {
     type: CREATE_POST,
+    payload: request
+  }
+}
+
+export function editPost(id , values, callback) {
+  
+  const request = apiRequest.put(`${ROOT_URL}/posts/${id}`, values)
+  .then(() => callback());
+  return {
+    type: EDIT_POST,
     payload: request
   }
 }

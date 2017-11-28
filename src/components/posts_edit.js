@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getCategories, createPost, fetchPostDetail } from '../actions';
+import { getCategories, createPost, fetchPostDetail, editPost } from '../actions';
 import _ from 'lodash';
 
 class PostsEdit extends Component {
@@ -15,25 +15,25 @@ class PostsEdit extends Component {
 
   fetchData = () => {
     const { id } = this.props.match.params;
-    this.props.getCategories();    
+    this.props.getCategories();
     this.props.fetchPostDetail(id);    
   }
 
   componentDidMount() {
     this.fetchData();
-    this.handleInitialize();    
+    this.handleInitialize();
   }
 
   handleInitialize() {
 
     const { id } = this.props.match.params;
-    const { posts } = this.props
+    const { posts } = this.props;
 
     const initData = {
       "title": posts && posts["lists"] && posts["lists"][id] && posts["lists"][id]["title"],
       "body": posts && posts["lists"] && posts["lists"][id] && posts["lists"][id]["body"],
       "author": posts && posts["lists"] && posts["lists"][id] && posts["lists"][id]["author"],
-      "category": posts && posts["lists"] && posts["lists"][id] && posts["lists"][id]["category"]    
+      "category": posts && posts["lists"] && posts["lists"][id] && posts["lists"][id]["category"]
     };
 
     // console.log("InitData is, ", initData);
@@ -99,7 +99,10 @@ class PostsEdit extends Component {
     
   onSubmit = (values) => {
     // console.log(values);
-    this.props.createPost(values);
+    const { id } = this.props.match.params;
+    this.props.editPost(id, values, () => {
+      this.props.history.push(`/posts/${id}`);
+    });
   }
 
   render() {
@@ -195,11 +198,9 @@ function mapStateToProps( state, ownProps){ // ES6: equivalent to state here and
 }
 
 
-PostsEdit = withRouter(connect(mapStateToProps, { createPost, getCategories, fetchPostDetail })(PostsEdit))
+PostsEdit = withRouter(connect(mapStateToProps, { createPost, getCategories, fetchPostDetail, editPost })(PostsEdit))
 
 export default PostsEdit =  reduxForm({
   validate,
   form: 'PostsNewForm',
 })(PostsEdit);
-
-
