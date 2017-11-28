@@ -14,15 +14,32 @@ class PostsEdit extends Component {
   // }
 
   fetchData = () => {
-    const { id } = this.props.match.params
+    const { id } = this.props.match.params;
+    this.props.getCategories();    
     this.props.fetchPostDetail(id);    
-    this.props.getCategories();
   }
 
   componentDidMount() {
     this.fetchData();
+    this.handleInitialize();    
   }
 
+  handleInitialize() {
+
+    const { id } = this.props.match.params;
+    const { posts } = this.props
+
+    const initData = {
+      "title": posts && posts["lists"] && posts["lists"][id] && posts["lists"][id]["title"],
+      "body": posts && posts["lists"] && posts["lists"][id] && posts["lists"][id]["body"],
+      "author": posts && posts["lists"] && posts["lists"][id] && posts["lists"][id]["author"],
+      "category": posts && posts["lists"] && posts["lists"][id] && posts["lists"][id]["category"]    
+    };
+
+    // console.log("InitData is, ", initData);
+
+    this.props.initialize(initData);
+  }
 
   renderField = (field) => {
 
@@ -89,7 +106,7 @@ class PostsEdit extends Component {
 
     const { handleSubmit, posts } = this.props; 
 
-    if(!posts && !posts["categories"]) {
+    if(!posts || !posts["categories"]) {
       return (
         <div>Loading</div>
       )
@@ -167,13 +184,14 @@ function validate(values) {
 }
 
 
-function mapStateToProps(state, ownProps){ // ES6: equivalent to state here and then const posts = state.posts in the body.
-    const resp = {
-      posts: state.posts,      
-      initialValues: state.posts && state.posts["lists"] && state.posts["lists"][ownProps.match.params.id],
-    };  
-    console.log("EDIT Debug: ", resp);    
-    return resp;
+function mapStateToProps( state, ownProps){ // ES6: equivalent to state here and then const posts = state.posts in the body.
+    // const resp = {
+    //   posts: state.posts && state.posts["lists"] && state.posts["categories"] && state.posts["lists"][ownProps.match.params.id]
+    // };  
+    // console.log("EDIT Debug: ", resp);    
+    // return resp;
+    return state;
+    // return { posts };
 }
 
 
@@ -182,13 +200,6 @@ PostsEdit = withRouter(connect(mapStateToProps, { createPost, getCategories, fet
 export default PostsEdit =  reduxForm({
   validate,
   form: 'PostsNewForm',
-  enableReinitialize: true,
-        initialValues: {
-        title : "hello",
-        body : "goodbye",
-        author : "ptharani",
-        category : "udacity"
-      }
 })(PostsEdit);
 
 
