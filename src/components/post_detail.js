@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { fetchPostDetail, votePost } from '../actions';
+import { fetchPostDetail, votePost, deletePost } from '../actions';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import moment from 'moment';
@@ -10,6 +10,12 @@ class PostDetail extends Component {
   componentDidMount() {
     const { id } = this.props.match.params
     this.props.fetchPostDetail(id);
+  }
+
+  handleDelete = (id) => {
+    this.props.deletePost(this.props.match.params.id, () => {
+      this.props.history.push('/')
+    });
   }
 
   render() {
@@ -72,7 +78,7 @@ class PostDetail extends Component {
           </nav>
         </div>
         <div className="media-right">
-          <button className="delete"></button>
+          <button className="delete" onClick={this.handleDelete} />
           &nbsp;&nbsp;&nbsp;
           <Link to={`/posts/${post.id}/edit`}><i className="fa fa-pencil" aria-hidden="true"></i></Link>
         </div>
@@ -93,4 +99,4 @@ function mapStateToProps(state, ownProps ){ // ES6: equivalent to state here and
 }
 
 // export default App;
-export default  withRouter( connect(mapStateToProps, { fetchPostDetail, votePost })(PostDetail) );
+export default  withRouter( connect(mapStateToProps, { fetchPostDetail, votePost, deletePost })(PostDetail) );

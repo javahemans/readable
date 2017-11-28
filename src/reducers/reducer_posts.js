@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { FETCH_POSTS, FETCH_CATEGORY_POSTS, FETCH_POST_DETAIL, VOTE_POST, ORDER_POSTS_BY, GET_CATEGORIES, CREATE_POST } from '../actions';
+import { FETCH_POSTS, FETCH_CATEGORY_POSTS, FETCH_POST_DETAIL, VOTE_POST, ORDER_POSTS_BY, GET_CATEGORIES, EDIT_POST, DELETE_POST } from '../actions';
 
 const initialState = {
   orderBy : "voteScore"
@@ -49,14 +49,23 @@ export default function (state = initialState, action) {
     case ORDER_POSTS_BY: 
       return {...state, orderBy: action.payload};
 
-    case CREATE_POST:
+    // case CREATE_POST: // Handled by ReduxForm, react-redux-form has a different philosophy here.
       // This will never be called because we put a callback on CreatePost action creator. Is that valid?
       // Is there a way or best pratice to link this reducer aspect to reduxForm createPost?
       // const createPostResult = _.mapKeys([action.payload.data], 'id');        
-      console.log("CREATE_POST:R - Handled by ReduxForm so no action.payload here ", action, state);
-      return {...state};     
+      // console.log("CREATE_POST:R - Handled by ReduxForm so no action.payload here ", action, state);
+      // return {...state};     
       // return {...state, lists: {...state.lists, ...createPostResult}};
 
+      // case EDIT_POST:
+      // console.log("EDIT Post Reducer state is, ", state, action.payload.data);
+      // return {...state};
+
+    //  case DELETE_POST:
+      // return _.omit(state, action.payload);
+      // console.log("Delete Post Reducer state is, ", action.payload.data);
+      // return {...state};
+      
     default: 
       return state;
   }
