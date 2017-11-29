@@ -1,6 +1,9 @@
 import axios from 'axios';
 import { v4 } from 'uuid';
 
+// PostsReducer Actions. (X, X_PENDING, X_FULFILLED) handled
+// by redux-promise-middleware.
+
 export const FETCH_POSTS = 'FETCH_POSTS';
 export const FETCH_POSTS_PENDING = 'FETCH_POSTS_PENDING';
 export const FETCH_POSTS_FULFILLED = 'FETCH_POSTS_FULFILLED';
@@ -25,9 +28,33 @@ export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const GET_CATEGORIES_PENDING = 'GET_CATEGORIES_PENDING';
 export const GET_CATEGORIES_FULFILLED = 'GET_CATEGORIES_FULFILLED';
 
+// PostsReducer Actions: Handled by Redux Thunk
+
 export const CREATE_POST = 'CREATE_POST';
 export const EDIT_POST = 'EDIT_POST';
 export const DELETE_POST = 'DELETE_POST';
+
+// CommentsReducer Actions. (X, X_PENDING, X_FULFILLED) handled
+// by redux-promise-middleware.
+
+export const FETCH_COMMENTS = 'FETCH_COMMENTS';
+export const FETCH_COMMENTS_PENDING = 'FETCH_COMMENTS_PENDING';
+export const FETCH_COMMENTS_FULFILLED = 'FETCH_COMMENTS_FULFILLED';
+
+export const FETCH_COMMENT = 'FETCH_COMMENT';
+export const FETCH_COMMENT_PENDING = 'FETCH_COMMENT_PENDING';
+export const FETCH_COMMENT_FULFILLED = 'FETCH_COMMENT_FULFILLED';
+
+export const VOTE_COMMENT = 'VOTE_COMMENT';
+export const VOTE_COMMENT_PENDING = 'VOTE_COMMENT_PENDING';
+export const VOTE_COMMENT_FULFILLED = 'VOTE_COMMENT_FULFILLED';
+
+// CommentsReducer Actions: Handled by Redux Thunk
+
+export const POST_COMMENT = 'POST_COMMENT';
+export const EDIT_COMMENT = 'EDIT_COMMENT';
+export const DELETE_COMMENT = 'DELETE_COMMENT';
+
 
 const ROOT_URL = 'http://localhost:3001';
 
