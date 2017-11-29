@@ -27,7 +27,6 @@ class PostsList extends Component {
 
     const { posts } = this.props;
     
-    // console.log("Match params is, ", this.props.match.params.category);
     
     // How can I ensure that every property within posts has been received? (not undefined?) Do I have to be this explicit?
     // I was getting undefined on the categories attribute within posts until I checked it explicitly.

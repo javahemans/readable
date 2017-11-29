@@ -1,15 +1,30 @@
 import axios from 'axios';
 import { v4 } from 'uuid';
 
-export const FETCH_POSTS = 'fetch_posts';
-export const FETCH_CATEGORY_POSTS = 'fetch_category_posts';
-// The FETCHPOSTS logic above can be combined... if category supplied the use that. 
-// Does it help to have to have a separate action creator to make things clear?
+export const FETCH_POSTS = 'FETCH_POSTS';
+export const FETCH_POSTS_PENDING = 'FETCH_POSTS_PENDING';
+export const FETCH_POSTS_FULFILLED = 'FETCH_POSTS_FULFILLED';
 
-export const FETCH_POST_DETAIL = 'fetch_post_detail';
-export const VOTE_POST = 'vote_post';
-export const ORDER_POSTS_BY = 'order_posts_by';
-export const GET_CATEGORIES = 'get_categories';
+export const FETCH_CATEGORY_POSTS = 'FETCH_CATEGORY_POSTS';
+export const FETCH_CATEGORY_POSTS_PENDING = 'FETCH_CATEGORY_POSTS_PENDING';
+export const FETCH_CATEGORY_POSTS_FULFILLED = 'FETCH_CATEGORY_POSTS_FULFILLED';
+
+export const FETCH_POST_DETAIL = 'FETCH_POST_DETAIL';
+export const FETCH_POST_DETAIL_PENDING = 'FETCH_POST_DETAIL_PENDING';
+export const FETCH_POST_DETAIL_FULFILLED = 'FETCH_POST_DETAIL_FULFILLED';
+
+export const VOTE_POST = 'VOTE_POST';
+export const VOTE_POST_PENDING = 'VOTE_POST_PENDING';
+export const VOTE_POST_FULFILLED = 'VOTE_POST_FULFILLED';
+
+export const ORDER_POSTS_BY = 'ORDER_POSTS_BY';
+export const ORDER_POSTS_BY_PENDING = 'ORDER_POSTS_BY_PENDING';
+export const ORDER_POSTS_BY_FULFILLED = 'ORDER_POSTS_BY_FULFILLED';
+
+export const GET_CATEGORIES = 'GET_CATEGORIES';
+export const GET_CATEGORIES_PENDING = 'GET_CATEGORIES_PENDING';
+export const GET_CATEGORIES_FULFILLED = 'GET_CATEGORIES_FULFILLED';
+
 export const CREATE_POST = 'create_post';
 export const EDIT_POST = 'edit_post';
 export const DELETE_POST = 'delete_post';

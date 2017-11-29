@@ -8,10 +8,12 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux'; //Compose not used, still works.
-import ReduxPromise from 'redux-promise';
+// import ReduxPromise from 'redux-promise';
+import promiseMiddleware from 'redux-promise-middleware';
+
 import reducers from './reducers'
 
-const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
+const createStoreWithMiddleware = applyMiddleware(promiseMiddleware())(createStore);
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f
 
 const store = createStoreWithMiddleware(reducers,{},composeEnhancers)
