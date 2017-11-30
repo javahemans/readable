@@ -185,6 +185,17 @@ export function fetchComments(id){
   }
 }
 
+export function voteComment(voteDirection, commentId){
+  const params = 
+  { "option" : voteDirection }
+  // const request = "voteDir request"
+  const request = apiRequest.post(`${ROOT_URL}/comments/${commentId}`, params);
+  // console.log("votePost Action Creator request");  
+    return {
+      type: VOTE_COMMENT,
+      payload: request
+    }
+}
 
 // export const delPost = id => dispatch => {
   // dispatch({type:''});

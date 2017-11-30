@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import { 
-  FETCH_COMMENTS, FETCH_COMMENTS_PENDING, FETCH_COMMENTS_FULFILLED, 
+  FETCH_COMMENTS, FETCH_COMMENTS_PENDING, FETCH_COMMENTS_FULFILLED,
+  VOTE_COMMENT, VOTE_COMMENT_FULFILLED 
  } from '../actions';
 
 const initialState = {
@@ -14,7 +15,7 @@ export default function (state = initialState, action) {
     case FETCH_COMMENTS_FULFILLED:       // _.mapKeys (Lodash) here to covert array to object.    
       const commentData = _.mapKeys(action.payload.data, 'id');
       console.log("FETCH_COMMENTS:R ", action.payload.data, commentData, state); // Note: former is array, latter is object.
-      return {...state, comments: {...state.lists, ...commentData } };
+      return {...state, comments: {...state.comments, ...commentData } };
 
     // case FETCH_POST_DETAIL_FULFILLED: 
       // NB: action.payload.data here returns an object, so we coerce it back into an array
@@ -24,11 +25,10 @@ export default function (state = initialState, action) {
       // return postDetailData;
       // return {...state, lists: {...state.lists, ...postDetailData }};
 
-    // case VOTE_POST_FULFILLED: 
-      // const postVoteData = _.mapKeys([action.payload.data], 'id');    
-      // console.log("VOTE_POST:R ", action.payload.data, postVoteData, state);
-      // return postVoteData;
-      // return {...state, lists: {...state.lists, ...postVoteData }};
+    case VOTE_COMMENT_FULFILLED: 
+      const commentVoteData = _.mapKeys([action.payload.data], 'id');    
+      console.log("COMMENT_POST:R ", action.payload.data, commentVoteData, state);
+      return {...state, comments: {...state.comments, ...commentVoteData }};
 
     // case EDIT_POST:
       // console.log("EDIT Post Reducer state is, ", state, action.payload);

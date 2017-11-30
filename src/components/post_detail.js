@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { fetchPostDetail, votePost, deletePost, fetchComments } from '../actions';
+import { fetchPostDetail, votePost, deletePost, fetchComments, voteComment } from '../actions';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import moment from 'moment';
@@ -41,6 +41,9 @@ class PostDetail extends Component {
         <div>Null</div>
       );
     }
+
+    const orderedComments =  _.orderBy(comments["comments"], 'voteScore', 'desc' );
+    // console.log("orderedComments is, ",comments["comments"], orderedComments );
 
     return (
       <div className="container">
@@ -108,7 +111,7 @@ class PostDetail extends Component {
             <p className="level-item"><a className="button is-success">Add Comment</a></p>
           </div>
         </nav>
-        {_.map(this.props.comments["comments"], comment => {
+        {_.map(orderedComments, comment => {
           console.log("Comments are: ", comment)
           return (
         <article key={comment.id} className="media">
@@ -138,12 +141,12 @@ class PostDetail extends Component {
                 </div>
                 <div className="level-item has-text-centered">
                   <div>
-                  <a><span className="icon comment" onClick={() => this.props.votePost("upVote", post.id)}><i className="fa fa-caret-up fa-2x"></i></span></a>                  
+                  <a><span className="icon comment" onClick={() => this.props.voteComment("upVote", comment.id)}><i className="fa fa-caret-up fa-2x"></i></span></a>                  
                   </div>
                 </div>
                 <div className="level-item has-text-centered">
                   <div>
-                  <a><span className="icon comment" onClick={() => this.props.votePost("downVote", post.id)}><i className="fa fa-caret-down fa-2x"></i></span></a>
+                  <a><span className="icon comment" onClick={() => this.props.voteComment("downVote", comment.id)}><i className="fa fa-caret-down fa-2x"></i></span></a>
                   </div>
                 </div>
               </nav>              
@@ -168,4 +171,4 @@ function mapStateToProps(state, ownProps ){ // ES6: equivalent to state here and
 }
 
 // export default App;
-export default  withRouter( connect(mapStateToProps, { fetchPostDetail, votePost, deletePost, fetchComments })(PostDetail) );
+export default  withRouter( connect(mapStateToProps, { fetchPostDetail, votePost, deletePost, fetchComments, voteComment })(PostDetail) );
