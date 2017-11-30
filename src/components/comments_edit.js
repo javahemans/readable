@@ -56,7 +56,7 @@ class CommentsEdit extends Component {
 
   render () {
 
-    const { handleSubmit, comments } = this.props; 
+    const { handleSubmit, comments, pristine, submitting } = this.props; 
     
     return (
         <div className="media-content">
@@ -71,8 +71,8 @@ class CommentsEdit extends Component {
             />
             <div className="field">
               <p className="control">
-                <button className="button">Save comment</button>&nbsp;&nbsp;
-                <button className="button is-danger">Cancel</button>
+                <button disabled={submitting} className="button">Save comment</button>&nbsp;&nbsp;
+                <button type="button" disabled={pristine || submitting} onClick={() => console.log("Button Click Override?")}className="button is-danger">Cancel</button>
               </p>
             </div>
           </form>
