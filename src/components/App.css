@@ -42,3 +42,7 @@ li.postItem:nth-of-type(odd) {
 form.uform {
   margin: 0 0.5em;
 }
+
+span.icon.comment {
+  vertical-align: sub;
+}

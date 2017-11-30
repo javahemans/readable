@@ -42,48 +42,113 @@ class PostDetail extends Component {
 
     return (
       <div className="container">
-      <article key={post.id} className="media">
-        <figure className="media-left votebox">
-          <p className="has-text-centered">
-          <span className="icon" onClick={() => this.props.votePost("upVote", post.id)}><i className="fa fa-caret-up fa-3x"></i></span>
-          </p>
-          <p className="has-text-centered has-text-info is-size-4">
-          {post.voteScore}
-          </p>
-          <p className="has-text-centered">
-          <span className="icon" onClick={() => this.props.votePost("downVote", post.id)}><i className="fa fa-caret-down fa-3x"></i></span>
-          </p>
-        </figure>
+        <article key={post.id} className="media">
+          <figure className="media-left votebox">
+            <p className="has-text-centered">
+            <span className="icon" onClick={() => this.props.votePost("upVote", post.id)}><i className="fa fa-caret-up fa-3x"></i></span>
+            </p>
+            <p className="has-text-centered has-text-info is-size-4">
+            {post.voteScore}
+            </p>
+            <p className="has-text-centered">
+            <span className="icon" onClick={() => this.props.votePost("downVote", post.id)}><i className="fa fa-caret-down fa-3x"></i></span>
+            </p>
+          </figure>
 
-        <div className="media-content">
-          <div className="content" onClick={this.handleClick}>
-            <Link to={`/posts/${post.id}`}>
-            <p>
-              <strong>{post.title}</strong>
-              <br />
-              {post.body}
-            </p>
-            </Link>
-            <p>
-              <small>In <i>{post.category}</i>, by: {post.author}</small> <small> | {moment(post.timestamp).from()}</small>
-            </p>
+          <div className="media-content">
+            <div className="content" onClick={this.handleClick}>
+              <Link to={`/posts/${post.id}`}>
+              <p>
+                <strong>{post.title}</strong>
+                <br />
+                {post.body}
+              </p>
+              </Link>
+              <p>
+                <small>In <i>{post.category}</i>, by: {post.author}</small> <small> | {moment(post.timestamp).from()}</small>
+              </p>
+            </div>
+
+            <nav class="level is-mobile">
+                <div class="level-item has-text-centered">
+                  <div>
+                  <a>{post.commentCount}&nbsp;<i className="fa fa-comments"></i></a>                  
+                  </div>
+                </div>
+                <div class="level-item has-text-centered">
+                  <div>
+                  <a onClick={this.handleDelete}><span className="icon comment" onClick={() => this.props.votePost("upVote", post.id)}><i className="fa fa-times"></i></span></a>                  
+                  </div>
+                </div>
+                <div class="level-item has-text-centered">
+                  <div>
+                  <Link to={`/posts/${post.id}/edit`}><span className="icon comment" onClick={() => this.props.votePost("downVote", post.id)}><i className="fa fa-pencil"></i></span></Link>
+                  </div>
+                </div>
+              </nav>              
+            
           </div>
 
-          <nav className="level is-mobile">
-            <div className="level-left">
-              <a className="level-item">
-              {post.commentCount}&nbsp; <span className="icon is-small"><i className="fa fa-comments"></i></span>
-              </a>
-            </div>
-          </nav>
-        </div>
-        <div className="media-right">
-          <button className="delete" onClick={this.handleDelete} />
-          &nbsp;&nbsp;&nbsp;
-          <Link to={`/posts/${post.id}/edit`}><i className="fa fa-pencil" aria-hidden="true"></i></Link>
-        </div>
-      </article>
+          <div className="media-right">
+          </div>
+        </article>
+        <hr />
 
+        <nav className="level is-mobile">
+          <div className="level-left">
+            <div className="level-item">
+              <p className="subtitle is-5">
+                <strong>Comments</strong>
+              </p>
+            </div>
+          </div>
+          <div className="level-right">
+            <p className="level-item"><a class="button is-success">Add Comment</a></p>
+          </div>
+        </nav>
+
+
+        <article className="media">
+          <figure className="media-left">
+            <p className="image is-48x48">
+              <img src="https://bulma.io/images/placeholders/96x96.png" />
+            </p>
+          </figure>
+          <div className="media-content">
+            <div className="content">
+              <p>
+                <strong>Sean Brown</strong>
+                <br />
+                Donec sollicitudin urna eget eros malesuada sagittis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam blandit nisl a nulla sagittis, a lobortis leo feugiat.
+                <br />
+                <p className=" is-6">2 hrs ago</p>
+
+              </p>
+              <nav class="level is-mobile">
+                <div class="level-item has-text-centered">
+                  <div>
+                  <a><span className="icon comment" onClick={() => this.props.votePost("downVote", post.id)}><i className="fa fa-pencil"></i></span></a>                  
+                  </div>
+                </div>
+                <div class="level-item has-text-centered">
+                  <div>
+                  <a><span className="icon comment" onClick={() => this.props.votePost("upVote", post.id)}><i className="fa fa-times"></i></span></a>                  
+                  </div>
+                </div>
+                <div class="level-item has-text-centered">
+                  <div>
+                  <a><span className="icon comment" onClick={() => this.props.votePost("upVote", post.id)}><i className="fa fa-caret-up fa-2x"></i></span></a>                  
+                  </div>
+                </div>
+                <div class="level-item has-text-centered">
+                  <div>
+                  <a><span className="icon comment" onClick={() => this.props.votePost("downVote", post.id)}><i className="fa fa-caret-down fa-2x"></i></span></a>
+                  </div>
+                </div>
+              </nav>              
+            </div>
+          </div>
+        </article>
       </div>
     );
   }
