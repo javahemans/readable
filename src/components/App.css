@@ -31,13 +31,18 @@ figure.votebox {
   margin-left: 1rem !important;
 }
 
-li.postItem {
+li.postItem, article.media.commentItem {
   padding: 2rem 0;
 }
 
-li.postItem:nth-of-type(odd) {
+li.postItem:nth-of-type(odd), article.media.commentItem:nth-of-type(even) {
   background: aliceblue;
 }
+
+article.media.commentItem:nth-of-type(odd) {
+  background: #d3d3d329;
+}
+
 
 form.uform {
   margin: 0 0.5em;

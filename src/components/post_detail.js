@@ -114,7 +114,7 @@ class PostDetail extends Component {
         {_.map(orderedComments, comment => {
           console.log("Comments are: ", comment)
           return (
-        <article key={comment.id} className="media">
+        <article key={comment.id} className="media commentItem">
           <figure className="media-left votebox">
             <p className="has-text-centered has-text-info is-size-4">
               {comment.voteScore}
