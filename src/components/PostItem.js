@@ -22,7 +22,7 @@ class PostItem extends Component {
           <p className="has-text-centered">
           <span className="icon" onClick={() => this.props.votePost("upVote", post.id)}><i className="fa fa-caret-up fa-3x"></i></span>
           </p>
-          <p className="has-text-centered has-text-info is-size-4">
+          <p className="has-text-centered has-text-info is-size-4 image is-48x48">
           {post.voteScore}
           </p>
           <p className="has-text-centered">
