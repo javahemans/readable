@@ -12,6 +12,7 @@ class CommentsNew extends Component {
     return (
       <div>
         <div className="field">
+          <label className="label is-medium">{field.label}</label>
           <p className="control">
             <textarea {...field.input} className={`is-medium textarea ${field.meta.touched && field.meta.error ? 'is-danger' : ''}`} placeholder="Add a comment..."></textarea>
           </p>
@@ -45,7 +46,11 @@ class CommentsNew extends Component {
   onSubmit = (values) => {
     // console.log(values);
     const { id } = this.props.match.params;
-    this.props.createComment(values, id);
+    const { reset, createComment } = this.props
+    return createComment(values, id).then(() =>{
+      reset();
+    })
+    createComment(values, id);
   }
 
 
@@ -58,7 +63,6 @@ class CommentsNew extends Component {
         <div className="media-content">
           <form className="uform" onSubmit={handleSubmit(this.onSubmit.bind(this))} >
             <Field 
-              label="Comment"
               name="body"
               component={this.renderTextArea}
             />
