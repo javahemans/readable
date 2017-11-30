@@ -1,7 +1,8 @@
 import _ from 'lodash';
 import { 
   FETCH_COMMENTS, FETCH_COMMENTS_PENDING, FETCH_COMMENTS_FULFILLED,
-  VOTE_COMMENT, VOTE_COMMENT_FULFILLED 
+  VOTE_COMMENT, VOTE_COMMENT_FULFILLED,
+  CREATE_COMMENT_FULFILLED
  } from '../actions';
 
 const initialState = {
@@ -27,9 +28,14 @@ export default function (state = initialState, action) {
 
     case VOTE_COMMENT_FULFILLED: 
       const commentVoteData = _.mapKeys([action.payload.data], 'id');    
-      console.log("COMMENT_POST:R ", action.payload.data, commentVoteData, state);
+      console.log("VOTE_COMMENT:R ", action.payload.data, commentVoteData, state);
       return {...state, comments: {...state.comments, ...commentVoteData }};
 
+    case CREATE_COMMENT_FULFILLED: 
+      const createData = _.mapKeys([action.payload.data], 'id');    
+      // console.log("CREATE_COMMENT:R ", action.payload.data, commentVoteData, state);
+      return {...state, comments: {...state.comments, ...createData }};
+      
     // case EDIT_POST:
       // console.log("EDIT Post Reducer state is, ", state, action.payload);
       // return {...state, lists: {...state.lists, [action.payload.id]: action.payload}};

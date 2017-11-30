@@ -51,7 +51,8 @@ export const VOTE_COMMENT_FULFILLED = 'VOTE_COMMENT_FULFILLED';
 
 // CommentsReducer Actions: Handled by Redux Thunk
 
-export const CREATE_COMMENT = 'POST_COMMENT';
+export const CREATE_COMMENT = 'CREATE_COMMENT';
+export const CREATE_COMMENT_FULFILLED = 'CREATE_COMMENT_FULFILLED';
 export const EDIT_COMMENT = 'EDIT_COMMENT';
 export const DELETE_COMMENT = 'DELETE_COMMENT';
 
