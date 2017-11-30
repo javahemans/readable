@@ -15,7 +15,7 @@ export default function (state = initialState, action) {
     case FETCH_COMMENTS_FULFILLED:       // _.mapKeys (Lodash) here to covert array to object.    
       const commentData = _.mapKeys(action.payload.data, 'id');
       console.log("FETCH_COMMENTS:R ", action.payload.data, commentData, state); // Note: former is array, latter is object.
-      return {...state, comments: {...state.comments, ...commentData } };
+      return {...state, comments: commentData };
 
     // case FETCH_POST_DETAIL_FULFILLED: 
       // NB: action.payload.data here returns an object, so we coerce it back into an array

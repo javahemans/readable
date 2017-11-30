@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
+import CommentsNew from './comments_new';
 
 class PostDetail extends Component {
 
@@ -108,9 +109,11 @@ class PostDetail extends Component {
             </div>
           </div>
           <div className="level-right">
-            <p className="level-item"><a className="button is-success">Add Comment</a></p>
           </div>
         </nav>
+
+        <CommentsNew />
+
         {_.map(orderedComments, comment => {
           console.log("Comments are: ", comment)
           return (
@@ -153,8 +156,8 @@ class PostDetail extends Component {
             </div>
           </div>
         </article>
-      );
-      })}
+        );
+        })}
       </div>
     );
   }

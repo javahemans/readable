@@ -51,7 +51,7 @@ export const VOTE_COMMENT_FULFILLED = 'VOTE_COMMENT_FULFILLED';
 
 // CommentsReducer Actions: Handled by Redux Thunk
 
-export const POST_COMMENT = 'POST_COMMENT';
+export const CREATE_COMMENT = 'POST_COMMENT';
 export const EDIT_COMMENT = 'EDIT_COMMENT';
 export const DELETE_COMMENT = 'DELETE_COMMENT';
 
@@ -196,6 +196,22 @@ export function voteComment(voteDirection, commentId){
       payload: request
     }
 }
+
+export function createComment(values, parentId) {
+  
+    const id = v4();
+    const timestamp = Date.now();
+    const valuesPlus = {...values, id, timestamp, parentId }
+    // console.log("valuesPlus is: ", valuesPlus);
+  
+    const request = apiRequest.post(`${ROOT_URL}/comments`, valuesPlus)
+    // console.log("Line 92 request is: ", request );
+    return {
+      type: CREATE_COMMENT,
+      payload: request
+    }
+  }
+  
 
 // export const delPost = id => dispatch => {
   // dispatch({type:''});
