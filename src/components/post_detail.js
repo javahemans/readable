@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { fetchPostDetail, votePost, deletePost, fetchComments, voteComment, toggleCommentView, editComment } from '../actions';
+import { fetchPostDetail, votePost, deletePost, fetchComments, voteComment, toggleCommentView, editComment, deleteComment } from '../actions';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import moment from 'moment';
@@ -21,6 +21,12 @@ class PostDetail extends Component {
       this.props.history.push('/')
     });
   }
+
+  handleCommentDelete = (CommentId) => {
+    console.log("Been called to delete a comment");
+    this.props.deleteComment(CommentId)
+  }
+
 
   render() {
 
@@ -84,12 +90,12 @@ class PostDetail extends Component {
                 </div>
                 <div className="level-item has-text-centered">
                   <div>
-                  <a onClick={this.handleDelete}><span className="icon comment" onClick={() => this.props.votePost("upVote", post.id)}><i className="fa fa-times"></i></span></a>                  
+                  <a onClick={this.handleDelete}><span className="icon comment"><i className="fa fa-times"></i></span></a>                  
                   </div>
                 </div>
                 <div className="level-item has-text-centered">
                   <div>
-                  <Link to={`/posts/${post.id}/edit`}><span className="icon comment" onClick={() => this.props.votePost("downVote", post.id)}><i className="fa fa-pencil"></i></span></Link>
+                  <Link to={`/posts/${post.id}/edit`}><span className="icon comment"><i className="fa fa-pencil"></i></span></Link>
                   </div>
                 </div>
               </nav>              
@@ -148,7 +154,7 @@ class PostDetail extends Component {
                 </div>
                 <div className="level-item has-text-centered">
                   <div>
-                  <a><span className="icon comment" onClick={() => this.props.votePost("upVote", post.id)}><i className="fa fa-times"></i></span></a>                  
+                  <a><span className="icon comment" onClick={() => this.handleCommentDelete(comment.id)}><i className="fa fa-times"></i></span></a>                  
                   </div>
                 </div>
                 <div className="level-item has-text-centered">
@@ -183,4 +189,4 @@ function mapStateToProps(state, ownProps ){ // ES6: equivalent to state here and
 }
 
 // export default App;
-export default  withRouter( connect(mapStateToProps, { fetchPostDetail, votePost, deletePost, fetchComments, voteComment, toggleCommentView, editComment })(PostDetail) );
+export default  withRouter( connect(mapStateToProps, { fetchPostDetail, votePost, deletePost, fetchComments, voteComment, toggleCommentView, editComment, deleteComment })(PostDetail) );

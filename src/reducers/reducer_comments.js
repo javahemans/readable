@@ -4,7 +4,9 @@ import {
   VOTE_COMMENT, VOTE_COMMENT_FULFILLED,
   CREATE_COMMENT_FULFILLED,
   TOGGLE_COMMENT_EDIT,
-  EDIT_COMMENT
+  EDIT_COMMENT,
+  DELETE_COMMENT
+
  } from '../actions';
 
 const initialState = {
@@ -12,7 +14,7 @@ const initialState = {
 }
 
 export default function (state = initialState, action) {
-  // console.log("Comments Reducer Action Received", action);
+  console.log("Comments Reducer Action Received", action);
   
   switch(action.type){
 
@@ -47,10 +49,10 @@ export default function (state = initialState, action) {
       // console.log("EDIT Post Reducer state is, ", state, action.payload);
       return {...state, comments: {...state.comments, [action.payload.id]: action.payload}};
 
-    // case DELETE_POST:
-      // const newState = _.omit(state.lists, action.payload.id);
+    case DELETE_COMMENT:
+      const newState = _.omit(state.comments, action.payload.id);
       // console.log("Delete Post Reducer: payload, state, newState, ", action.payload, state, newState);
-      // return {...state, lists: {...newState}};
+      return {...state, comments: {...newState}};
       
     default: 
       return state;

@@ -240,7 +240,25 @@ export function createComment(values, parentId) {
         payload: data
     }
   }
-   
+
+  export function deleteComment(id) {
+    
+      return dispatch => {
+        apiRequest.delete(`${ROOT_URL}/comments/${id}`)
+        .then(res => {
+          dispatch(deleteCommentSuccess(res.data))            
+        });
+      }
+    }
+    
+    function deleteCommentSuccess(data) {
+      return {
+          type: DELETE_COMMENT,
+          payload: data
+      }
+    }
+      
+
 // export const delPost = id => dispatch => {
   // dispatch({type:''});
   // getFromApi().then( data=>dispatch({type:'SETDATA', data}) )
