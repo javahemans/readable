@@ -3,15 +3,16 @@ import {
   FETCH_COMMENTS, FETCH_COMMENTS_PENDING, FETCH_COMMENTS_FULFILLED,
   VOTE_COMMENT, VOTE_COMMENT_FULFILLED,
   CREATE_COMMENT_FULFILLED,
-  TOGGLE_COMMENT_EDIT
+  TOGGLE_COMMENT_EDIT,
+  EDIT_COMMENT
  } from '../actions';
 
 const initialState = {
-  editingCommentId : "7a0bc6e9-716d-4007-a490-42181c5ed6ce"
+  editingCommentId : ''
 }
 
 export default function (state = initialState, action) {
-  console.log("Comments Reducer Action Received", action);
+  // console.log("Comments Reducer Action Received", action);
   
   switch(action.type){
 
@@ -30,7 +31,7 @@ export default function (state = initialState, action) {
 
     case VOTE_COMMENT_FULFILLED: 
       const commentVoteData = _.mapKeys([action.payload.data], 'id');    
-      console.log("VOTE_COMMENT:R ", action.payload.data, commentVoteData, state);
+      // console.log("VOTE_COMMENT:R ", action.payload.data, commentVoteData, state);
       return {...state, comments: {...state.comments, ...commentVoteData }};
 
     case CREATE_COMMENT_FULFILLED: 
@@ -42,9 +43,9 @@ export default function (state = initialState, action) {
       return {...state, editingCommentId: action.payload};
     
       
-    // case EDIT_POST:
+    case EDIT_COMMENT:
       // console.log("EDIT Post Reducer state is, ", state, action.payload);
-      // return {...state, lists: {...state.lists, [action.payload.id]: action.payload}};
+      return {...state, comments: {...state.comments, [action.payload.id]: action.payload}};
 
     // case DELETE_POST:
       // const newState = _.omit(state.lists, action.payload.id);

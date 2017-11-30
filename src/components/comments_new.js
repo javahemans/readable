@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createComment } from '../actions';
 
@@ -50,13 +50,12 @@ class CommentsNew extends Component {
     return createComment(values, id).then(() =>{
       reset();
     })
-    createComment(values, id);
   }
 
 
   render () {
 
-    const { handleSubmit, comments } = this.props; 
+    const { handleSubmit } = this.props; 
     
     return (
       <article className="media">

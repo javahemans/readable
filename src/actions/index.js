@@ -222,16 +222,25 @@ export function createComment(values, parentId) {
       }
     }      
 
-  export function editComment(id , values) {
-    
+  export function editComment(values, id) {
+    console.log("Edit Comment Values are: ", values);
     return dispatch => {
-      apiRequest.put(`${ROOT_URL}/posts/${id}`, values)
+      apiRequest.put(`${ROOT_URL}/comments/${id}`, values)
         .then(res => {
-            dispatch(editPostSuccess(res.data))        
-        });
+            dispatch(toggleCommentView(''));               
+            dispatch(editCommentSuccess(res.data));
+            
+          })       
     }
   }
-  
+
+  function editCommentSuccess(data) {
+    return {
+        type: EDIT_COMMENT,
+        payload: data
+    }
+  }
+   
 // export const delPost = id => dispatch => {
   // dispatch({type:''});
   // getFromApi().then( data=>dispatch({type:'SETDATA', data}) )

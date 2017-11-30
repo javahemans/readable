@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { editComment, toggleCommentView } from '../actions';
 
@@ -63,19 +63,16 @@ class CommentsEdit extends Component {
       
 
   onSubmit = (values) => {
-    // console.log(values);
-    const { id } = this.props.match.params;
-    const { reset, editComment } = this.props
-    return editComment(values, id).then(() =>{
-      reset();
-    })
-    editComment(values, id);
+    console.log(values);
+    const { id } = this.props.comment;
+    const { editComment } = this.props
+    return editComment(values, id)
   }
 
 
   render () {
 
-    const { handleSubmit, comments, pristine, submitting } = this.props; 
+    const { handleSubmit, pristine, submitting } = this.props; 
     
     return (
         <div className="media-content">

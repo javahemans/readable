@@ -116,7 +116,6 @@ class PostDetail extends Component {
         <CommentsNew />
 
         {_.map(orderedComments, comment => {
-          console.log("Comment, comments are: ", comment, comments);
 
         if(comments["editingCommentId"]===comment.id) {
           return(
