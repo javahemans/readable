@@ -59,7 +59,6 @@ class CommentsEdit extends Component {
     const { handleSubmit, comments } = this.props; 
     
     return (
-      <article className="media">
         <div className="media-content">
           <form className="uform" onSubmit={handleSubmit(this.onSubmit.bind(this))} >
             <Field 
@@ -78,7 +77,6 @@ class CommentsEdit extends Component {
             </div>
           </form>
         </div>
-      </article>
     );
   }
 }

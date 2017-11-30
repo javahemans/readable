@@ -119,7 +119,11 @@ class PostDetail extends Component {
           console.log("Comment, comments are: ", comment, comments);
 
         if(comments["editingCommentId"]===comment.id) {
-          return(<CommentsEdit />);
+          return(
+            <article key={comment.id} className="media">
+              <CommentsEdit />
+            </article>
+            );
         } else {
           return (
            
