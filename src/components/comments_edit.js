@@ -7,6 +7,25 @@ import { editComment, toggleCommentView } from '../actions';
 
 class CommentsEdit extends Component {
 
+  componentDidMount() {
+    this.handleInitialize();
+  }
+
+  handleInitialize() {
+
+    console.log("Props here are: ", this.props);
+
+    const initData = {
+      "body": this.props.comment["body"],
+      "author": this.props.comment["author"]
+    };
+
+    console.log("InitData on Edit Comment is, ", initData);
+
+    this.props.initialize(initData);
+  }
+
+
   renderTextArea = (field) => {
     
     return (

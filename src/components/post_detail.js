@@ -121,7 +121,7 @@ class PostDetail extends Component {
         if(comments["editingCommentId"]===comment.id) {
           return(
             <article key={comment.id} className="media">
-              <CommentsEdit />
+              <CommentsEdit comment={comment}/>
             </article>
             );
         } else {
