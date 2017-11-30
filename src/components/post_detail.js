@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { fetchPostDetail, votePost, deletePost, fetchComments, voteComment } from '../actions';
+import { fetchPostDetail, votePost, deletePost, fetchComments, voteComment, toggleCommentView, editComment } from '../actions';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
 import CommentsNew from './comments_new';
+import CommentsEdit from './comments_edit';
 
 class PostDetail extends Component {
 
@@ -115,8 +116,13 @@ class PostDetail extends Component {
         <CommentsNew />
 
         {_.map(orderedComments, comment => {
-          console.log("Comments are: ", comment)
+          console.log("Comment, comments are: ", comment, comments);
+
+        if(comments["editingCommentId"]===comment.id) {
+          return(<CommentsEdit />);
+        } else {
           return (
+           
         <article key={comment.id} className="media commentItem">
           <figure className="media-left votebox">
             <p className="has-text-centered has-text-info is-size-4 image is-48x48">
@@ -134,7 +140,7 @@ class PostDetail extends Component {
               <nav className="level is-mobile">
                 <div className="level-item has-text-centered">
                   <div>
-                  <a><span className="icon comment" onClick={() => this.props.votePost("downVote", post.id)}><i className="fa fa-pencil"></i></span></a>                  
+                  <a><span className="icon comment" onClick={() => this.props.toggleCommentView(comment.id)}><i className="fa fa-pencil"></i></span></a>                  
                   </div>
                 </div>
                 <div className="level-item has-text-centered">
@@ -156,7 +162,7 @@ class PostDetail extends Component {
             </div>
           </div>
         </article>
-        );
+        )};
         })}
       </div>
     );
@@ -174,4 +180,4 @@ function mapStateToProps(state, ownProps ){ // ES6: equivalent to state here and
 }
 
 // export default App;
-export default  withRouter( connect(mapStateToProps, { fetchPostDetail, votePost, deletePost, fetchComments, voteComment })(PostDetail) );
+export default  withRouter( connect(mapStateToProps, { fetchPostDetail, votePost, deletePost, fetchComments, voteComment, toggleCommentView, editComment })(PostDetail) );

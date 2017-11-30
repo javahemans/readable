@@ -2,10 +2,12 @@ import _ from 'lodash';
 import { 
   FETCH_COMMENTS, FETCH_COMMENTS_PENDING, FETCH_COMMENTS_FULFILLED,
   VOTE_COMMENT, VOTE_COMMENT_FULFILLED,
-  CREATE_COMMENT_FULFILLED
+  CREATE_COMMENT_FULFILLED,
+  TOGGLE_COMMENT_EDIT
  } from '../actions';
 
 const initialState = {
+  editingCommentId : "7a0bc6e9-716d-4007-a490-42181c5ed6ce"
 }
 
 export default function (state = initialState, action) {
@@ -35,6 +37,10 @@ export default function (state = initialState, action) {
       const createData = _.mapKeys([action.payload.data], 'id');    
       // console.log("CREATE_COMMENT:R ", action.payload.data, commentVoteData, state);
       return {...state, comments: {...state.comments, ...createData }};
+
+    case TOGGLE_COMMENT_EDIT:
+      return {...state, editingCommentId: action.payload};
+    
       
     // case EDIT_POST:
       // console.log("EDIT Post Reducer state is, ", state, action.payload);

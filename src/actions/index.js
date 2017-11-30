@@ -53,6 +53,7 @@ export const VOTE_COMMENT_FULFILLED = 'VOTE_COMMENT_FULFILLED';
 
 export const CREATE_COMMENT = 'CREATE_COMMENT';
 export const CREATE_COMMENT_FULFILLED = 'CREATE_COMMENT_FULFILLED';
+export const TOGGLE_COMMENT_EDIT = 'TOGGLE_COMMENT_EDIT';
 export const EDIT_COMMENT = 'EDIT_COMMENT';
 export const DELETE_COMMENT = 'DELETE_COMMENT';
 
@@ -213,7 +214,24 @@ export function createComment(values, parentId) {
     }
   }
   
+  export function toggleCommentView(commentId) {
+    
+      return {
+        type: TOGGLE_COMMENT_EDIT,
+        payload: commentId
+      }
+    }      
 
+  export function editComment(id , values) {
+    
+    return dispatch => {
+      apiRequest.put(`${ROOT_URL}/posts/${id}`, values)
+        .then(res => {
+            dispatch(editPostSuccess(res.data))        
+        });
+    }
+  }
+  
 // export const delPost = id => dispatch => {
   // dispatch({type:''});
   // getFromApi().then( data=>dispatch({type:'SETDATA', data}) )
