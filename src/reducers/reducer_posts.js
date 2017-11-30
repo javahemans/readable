@@ -15,7 +15,7 @@ const initialState = {
 }
 
 export default function (state = initialState, action) {
-  console.log("Reducer Action Received", action);
+  // console.log("Reducer Action Received", action);
   
   switch(action.type){
 

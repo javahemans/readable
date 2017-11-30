@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchPosts, fetchCategoryPosts, orderPostsBy, getCategories } from '../actions';
+import { fetchPosts, fetchCategoryPosts, orderPostsBy, getCategories, fetchComments } from '../actions';
 import PostItem from './PostItem';
 
 class PostsList extends Component {
@@ -10,6 +10,7 @@ class PostsList extends Component {
   fetchData = () => {
     this.props.match.params.category ? this.props.fetchCategoryPosts(this.props.match.params.category) : this.props.fetchPosts();
     this.props.getCategories();
+    this.props.fetchComments();
   }
 
   componentDidMount() {
@@ -108,4 +109,4 @@ function mapStateToProps({ posts }){ // ES6: equivalent to state here and then c
 }
 
 // export default App;
-export default  withRouter( connect(mapStateToProps, { fetchPosts, fetchCategoryPosts, orderPostsBy, getCategories })(PostsList) );
+export default  withRouter( connect(mapStateToProps, { fetchPosts, fetchCategoryPosts, orderPostsBy, getCategories, fetchComments })(PostsList) );

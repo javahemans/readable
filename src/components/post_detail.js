@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
-import { fetchPostDetail, votePost, deletePost } from '../actions';
+import { fetchPostDetail, votePost, deletePost, fetchComments } from '../actions';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
+import _ from 'lodash';
 
 class PostDetail extends Component {
 
   componentDidMount() {
     const { id } = this.props.match.params
     this.props.fetchPostDetail(id);
+    this.props.fetchComments(id);    
   }
 
   handleDelete = (id) => {
@@ -32,7 +34,7 @@ class PostDetail extends Component {
 
     // console.log("Post Detail Page", this.props.match.params.id, posts, post);
 
-    const { post } = this.props;
+    const { post, comments } = this.props;
 
     if(!post) {
       return (
@@ -69,18 +71,18 @@ class PostDetail extends Component {
               </p>
             </div>
 
-            <nav class="level is-mobile">
-                <div class="level-item has-text-centered">
+            <nav className="level is-mobile">
+                <div className="level-item has-text-centered">
                   <div>
                   <a>{post.commentCount}&nbsp;<i className="fa fa-comments"></i></a>                  
                   </div>
                 </div>
-                <div class="level-item has-text-centered">
+                <div className="level-item has-text-centered">
                   <div>
                   <a onClick={this.handleDelete}><span className="icon comment" onClick={() => this.props.votePost("upVote", post.id)}><i className="fa fa-times"></i></span></a>                  
                   </div>
                 </div>
-                <div class="level-item has-text-centered">
+                <div className="level-item has-text-centered">
                   <div>
                   <Link to={`/posts/${post.id}/edit`}><span className="icon comment" onClick={() => this.props.votePost("downVote", post.id)}><i className="fa fa-pencil"></i></span></Link>
                   </div>
@@ -103,44 +105,43 @@ class PostDetail extends Component {
             </div>
           </div>
           <div className="level-right">
-            <p className="level-item"><a class="button is-success">Add Comment</a></p>
+            <p className="level-item"><a className="button is-success">Add Comment</a></p>
           </div>
         </nav>
-
-
-        <article className="media">
-          <figure className="media-left">
-            <p className="image is-48x48">
-              <img src="https://bulma.io/images/placeholders/96x96.png" />
+        {_.map(this.props.comments["comments"], comment => {
+          console.log("Comments are: ", comment)
+          return (
+        <article key={comment.id} className="media">
+          <figure className="media-left votebox">
+            <p className="has-text-centered has-text-info is-size-4">
+              {comment.voteScore}
             </p>
           </figure>
           <div className="media-content">
             <div className="content">
               <p>
-                <strong>Sean Brown</strong>
+                <strong>{comment.author}</strong>&nbsp;·&nbsp;{moment(comment.timestamp).from()}
                 <br />
-                Donec sollicitudin urna eget eros malesuada sagittis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam blandit nisl a nulla sagittis, a lobortis leo feugiat.
+                {comment.body}
                 <br />
-                <p className=" is-6">2 hrs ago</p>
-
               </p>
-              <nav class="level is-mobile">
-                <div class="level-item has-text-centered">
+              <nav className="level is-mobile">
+                <div className="level-item has-text-centered">
                   <div>
                   <a><span className="icon comment" onClick={() => this.props.votePost("downVote", post.id)}><i className="fa fa-pencil"></i></span></a>                  
                   </div>
                 </div>
-                <div class="level-item has-text-centered">
+                <div className="level-item has-text-centered">
                   <div>
                   <a><span className="icon comment" onClick={() => this.props.votePost("upVote", post.id)}><i className="fa fa-times"></i></span></a>                  
                   </div>
                 </div>
-                <div class="level-item has-text-centered">
+                <div className="level-item has-text-centered">
                   <div>
                   <a><span className="icon comment" onClick={() => this.props.votePost("upVote", post.id)}><i className="fa fa-caret-up fa-2x"></i></span></a>                  
                   </div>
                 </div>
-                <div class="level-item has-text-centered">
+                <div className="level-item has-text-centered">
                   <div>
                   <a><span className="icon comment" onClick={() => this.props.votePost("downVote", post.id)}><i className="fa fa-caret-down fa-2x"></i></span></a>
                   </div>
@@ -149,6 +150,8 @@ class PostDetail extends Component {
             </div>
           </div>
         </article>
+      );
+      })}
       </div>
     );
   }
@@ -159,9 +162,10 @@ function mapStateToProps(state, ownProps ){ // ES6: equivalent to state here and
   // For examlpe, this page will have a match.params.id prop available in ownProps.
   
   return {
-    post: state.posts && state.posts["lists"] && state.posts["lists"][ownProps.match.params.id]
+    post: state.posts && state.posts["lists"] && state.posts["lists"][ownProps.match.params.id],
+    comments: state.comments
   };
 }
 
 // export default App;
-export default  withRouter( connect(mapStateToProps, { fetchPostDetail, votePost, deletePost })(PostDetail) );
+export default  withRouter( connect(mapStateToProps, { fetchPostDetail, votePost, deletePost, fetchComments })(PostDetail) );

@@ -176,6 +176,15 @@ function deletePostSuccess(data) {
   }
 }
 
+export function fetchComments(id){
+  const request = apiRequest.get(`${ROOT_URL}/posts/${id}/comments`);
+
+  return {
+    type: FETCH_COMMENTS,
+    payload: request
+  }
+}
+
 
 // export const delPost = id => dispatch => {
   // dispatch({type:''});
