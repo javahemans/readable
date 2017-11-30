@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { editComment } from '../actions';
+import { editComment, toggleCommentView } from '../actions';
 
 
 class CommentsEdit extends Component {
@@ -46,11 +46,11 @@ class CommentsEdit extends Component {
   onSubmit = (values) => {
     // console.log(values);
     const { id } = this.props.match.params;
-    const { reset, createComment } = this.props
-    return createComment(values, id).then(() =>{
+    const { reset, editComment } = this.props
+    return editComment(values, id).then(() =>{
       reset();
     })
-    createComment(values, id);
+    editComment(values, id);
   }
 
 
@@ -71,8 +71,8 @@ class CommentsEdit extends Component {
             />
             <div className="field">
               <p className="control">
-                <button disabled={submitting} className="button">Save comment</button>&nbsp;&nbsp;
-                <button type="button" disabled={pristine || submitting} onClick={() => console.log("Button Click Override?")}className="button is-danger">Cancel</button>
+                <button disabled={pristine || submitting} className="button">Save comment</button>&nbsp;&nbsp;
+                <button type="button" onClick={() => this.props.toggleCommentView('eoauoae')}className="button is-danger">Cancel</button>
               </p>
             </div>
           </form>
@@ -102,7 +102,7 @@ function mapStateToProps({ comments }){ // ES6: equivalent to state here and the
 }
 
 
-CommentsEdit = withRouter(connect(mapStateToProps, { editComment })(CommentsEdit))
+CommentsEdit = withRouter(connect(mapStateToProps, { editComment, toggleCommentView })(CommentsEdit))
 
 export default CommentsEdit =  reduxForm({
   validate,
