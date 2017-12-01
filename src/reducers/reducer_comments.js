@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { 
-  FETCH_COMMENTS, FETCH_COMMENTS_PENDING, FETCH_COMMENTS_FULFILLED,
-  VOTE_COMMENT, VOTE_COMMENT_FULFILLED,
+  FETCH_COMMENTS_FULFILLED,
+  VOTE_COMMENT_FULFILLED,
   CREATE_COMMENT_FULFILLED,
   TOGGLE_COMMENT_EDIT,
   EDIT_COMMENT,
@@ -14,13 +14,13 @@ const initialState = {
 }
 
 export default function (state = initialState, action) {
-  console.log("Comments Reducer Action Received", action);
+  // console.log("Comments Reducer Action Received", action);
   
   switch(action.type){
 
     case FETCH_COMMENTS_FULFILLED:       // _.mapKeys (Lodash) here to covert array to object.    
       const commentData = _.mapKeys(action.payload.data, 'id');
-      console.log("FETCH_COMMENTS:R ", action.payload.data, commentData, state); // Note: former is array, latter is object.
+      // console.log("FETCH_COMMENTS:R ", action.payload.data, commentData, state); // Note: former is array, latter is object.
       return {...state, comments: commentData };
 
     // case FETCH_POST_DETAIL_FULFILLED: 

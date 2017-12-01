@@ -123,56 +123,53 @@ class PostDetail extends Component {
 
         {_.map(orderedComments, comment => {
 
-        if(comments["editingCommentId"]===comment.id) {
-          return(
+        return (comments["editingCommentId"]===comment.id) ?
+          (  
             <article key={comment.id} className="media">
               <CommentsEdit comment={comment}/>
             </article>
-            );
-        } else {
-          return (
-           
-        <article key={comment.id} className="media commentItem">
-          <figure className="media-left votebox">
-            <p className="has-text-centered has-text-info is-size-4 image is-48x48">
-              {comment.voteScore}
-            </p>
-          </figure>
-          <div className="media-content">
-            <div className="content">
-              <p>
-                <strong>{comment.author}</strong>&nbsp;·&nbsp;{moment(comment.timestamp).from()}
-                <br />
-                {comment.body}
-                <br />
-              </p>
-              <nav className="level is-mobile">
-                <div className="level-item has-text-centered">
-                  <div>
-                  <a><span className="icon comment" onClick={() => this.props.toggleCommentView(comment.id)}><i className="fa fa-pencil"></i></span></a>                  
-                  </div>
+          ):(
+            <article key={comment.id} className="media commentItem">
+              <figure className="media-left votebox">
+                <p className="has-text-centered has-text-info is-size-4 image is-48x48">
+                  {comment.voteScore}
+                </p>
+              </figure>
+              <div className="media-content">
+                <div className="content">
+                  <p>
+                    <strong>{comment.author}</strong>&nbsp;·&nbsp;{moment(comment.timestamp).from()}
+                    <br />
+                    {comment.body}
+                    <br />
+                  </p>
+                  <nav className="level is-mobile">
+                    <div className="level-item has-text-centered">
+                      <div>
+                      <a><span className="icon comment" onClick={() => this.props.toggleCommentView(comment.id)}><i className="fa fa-pencil"></i></span></a>                  
+                      </div>
+                    </div>
+                    <div className="level-item has-text-centered">
+                      <div>
+                      <a><span className="icon comment" onClick={() => this.handleCommentDelete(comment.id)}><i className="fa fa-times"></i></span></a>                  
+                      </div>
+                    </div>
+                    <div className="level-item has-text-centered">
+                      <div>
+                      <a><span className="icon comment" onClick={() => this.props.voteComment("upVote", comment.id)}><i className="fa fa-caret-up fa-2x"></i></span></a>                  
+                      </div>
+                    </div>
+                    <div className="level-item has-text-centered">
+                      <div>
+                      <a><span className="icon comment" onClick={() => this.props.voteComment("downVote", comment.id)}><i className="fa fa-caret-down fa-2x"></i></span></a>
+                      </div>
+                    </div>
+                  </nav>              
                 </div>
-                <div className="level-item has-text-centered">
-                  <div>
-                  <a><span className="icon comment" onClick={() => this.handleCommentDelete(comment.id)}><i className="fa fa-times"></i></span></a>                  
-                  </div>
-                </div>
-                <div className="level-item has-text-centered">
-                  <div>
-                  <a><span className="icon comment" onClick={() => this.props.voteComment("upVote", comment.id)}><i className="fa fa-caret-up fa-2x"></i></span></a>                  
-                  </div>
-                </div>
-                <div className="level-item has-text-centered">
-                  <div>
-                  <a><span className="icon comment" onClick={() => this.props.voteComment("downVote", comment.id)}><i className="fa fa-caret-down fa-2x"></i></span></a>
-                  </div>
-                </div>
-              </nav>              
-            </div>
-          </div>
-        </article>
-        )};
-        })}
+              </div>
+            </article>
+          )}
+        )}
       </div>
     );
   }
