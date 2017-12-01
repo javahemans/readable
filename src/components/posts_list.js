@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchPosts, fetchCategoryPosts, orderPostsBy, getCategories, fetchComments } from '../actions';
+import { fetchPosts, fetchCategoryPosts, orderPostsBy, getCategories, fetchComments, votePost } from '../actions';
 import PostItem from './posts_list_item';
 
 class PostsList extends Component {
@@ -92,7 +92,7 @@ class PostsList extends Component {
             {_.map(orderedPosts, (p) => {
             return (
                 <li className="postItem" key={p.id}>
-                  <PostItem post={p} />
+                  <PostItem post={p} votePost={this.props.votePost} />
                 </li>
             );
             })}
@@ -109,4 +109,4 @@ function mapStateToProps({ posts }){ // ES6: equivalent to state here and then c
 }
 
 // export default App;
-export default  withRouter( connect(mapStateToProps, { fetchPosts, fetchCategoryPosts, orderPostsBy, getCategories, fetchComments })(PostsList) );
+export default  withRouter( connect(mapStateToProps, { fetchPosts, fetchCategoryPosts, orderPostsBy, getCategories, fetchComments, votePost })(PostsList) );
