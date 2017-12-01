@@ -113,7 +113,8 @@ function validate(values) {
 }
 
 
-function mapStateToProps({ comments }){ // ES6: equivalent to state here and then const posts = state.posts in the body.
+function mapStateToProps({ comments }){ 
+  // ES6: equivalent to state here and then const posts = state.posts in the body.
   return { comments }; // ES6 as opposed to posts:posts
 }
 

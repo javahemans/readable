@@ -6,6 +6,7 @@ import moment from 'moment';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
 import CommentsNew from './comments_new';
+import CommentsListItem from './comments_list_item';
 import CommentsEdit from './comments_edit';
 
 class PostDetail extends Component {
@@ -135,38 +136,7 @@ class PostDetail extends Component {
                   {comment.voteScore}
                 </p>
               </figure>
-              <div className="media-content">
-                <div className="content">
-                  <p>
-                    <strong>{comment.author}</strong>&nbsp;·&nbsp;{moment(comment.timestamp).from()}
-                    <br />
-                    {comment.body}
-                    <br />
-                  </p>
-                  <nav className="level is-mobile">
-                    <div className="level-item has-text-centered">
-                      <div>
-                      <a><span className="icon comment" onClick={() => this.props.toggleCommentView(comment.id)}><i className="fa fa-pencil"></i></span></a>                  
-                      </div>
-                    </div>
-                    <div className="level-item has-text-centered">
-                      <div>
-                      <a><span className="icon comment" onClick={() => this.handleCommentDelete(comment.id)}><i className="fa fa-times"></i></span></a>                  
-                      </div>
-                    </div>
-                    <div className="level-item has-text-centered">
-                      <div>
-                      <a><span className="icon comment" onClick={() => this.props.voteComment("upVote", comment.id)}><i className="fa fa-caret-up fa-2x"></i></span></a>                  
-                      </div>
-                    </div>
-                    <div className="level-item has-text-centered">
-                      <div>
-                      <a><span className="icon comment" onClick={() => this.props.voteComment("downVote", comment.id)}><i className="fa fa-caret-down fa-2x"></i></span></a>
-                      </div>
-                    </div>
-                  </nav>              
-                </div>
-              </div>
+              <CommentsListItem comment={comment} voteComment={this.props.voteComment} toggleCommentView={this.props.toggleCommentView} handleCommentDelete={this.handleCommentDelete} />
             </article>
           )}
         )}
@@ -175,7 +145,8 @@ class PostDetail extends Component {
   }
 }
 
-function mapStateToProps(state, ownProps ){ // ES6: equivalent to state here and then const posts = state.posts in the body.
+function mapStateToProps(state, ownProps ){ 
+  // ES6: equivalent to state here and then const posts = state.posts in the body.
   // The rationale here for using ownProps is to just return the post requested, and not the entire {posts} object. 
   // For examlpe, this page will have a match.params.id prop available in ownProps.
   

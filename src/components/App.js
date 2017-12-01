@@ -3,9 +3,9 @@ import './App.css';
 import moment from 'moment';
 // import { connect } from 'react-redux';
 // import { fetchPosts } from '../actions';
-import PostsList from './PostsList';
 import _ from 'lodash';
 import { Route, Switch, Link } from 'react-router-dom';
+import PostsList from './posts_list';
 import PostsNew from './posts_new';
 import PostDetail from './post_detail';
 import PostsEdit from './posts_edit';
@@ -57,11 +57,10 @@ class App extends Component {
         </section>
         <Switch>
           <Route exact path ='/' component={PostsList} />
-          <Route path ='/:category/posts' component={PostsList} />
           <Route exact path ='/posts/new' component={PostsNew} />
           <Route exact path ='/posts/:id' component={PostDetail} />
           <Route exact path ='/posts/:id/edit' component={PostsEdit} />
-
+          <Route path ='/:category' component={PostsList} />
         </Switch>
           {/* <Route exact path="/:category/posts" render={({match, location}) => (
               <PostsList match={match} location={location}  />

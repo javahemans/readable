@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchPosts, fetchCategoryPosts, orderPostsBy, getCategories, fetchComments } from '../actions';
-import PostItem from './PostItem';
+import PostItem from './posts_list_item';
 
 class PostsList extends Component {
 
@@ -53,7 +53,7 @@ class PostsList extends Component {
             {posts["categories"].map(cat => {
               return (
                 <div key={cat.path} className="level-item has-text-centered">
-                  <p className="level-item"><Link to={`/${cat.path}/posts`}>{cat.name}</Link></p>
+                  <p className="level-item"><Link to={`/${cat.path}`}>{cat.name}</Link></p>
                 </div>
               )
             })}
