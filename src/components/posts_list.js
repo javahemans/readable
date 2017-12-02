@@ -31,7 +31,7 @@ class PostsList extends Component {
     
     if (!posts || !posts["categories"]) {
       return (
-        <div>Loading</div>
+        <div className="container">Loading</div>
       );
     }
  

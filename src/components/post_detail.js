@@ -9,7 +9,6 @@ import CategorySubnav from './category_subnav';
 import CommentsNew from './comments_new';
 import CommentsListItem from './comments_list_item';
 import CommentsEdit from './comments_edit';
-import NotFound from './404';
 
 class PostDetail extends Component {
 
@@ -42,7 +41,7 @@ class PostDetail extends Component {
 
     if(!post) {
       return (
-        <NotFound />
+        <div className="container">Loading</div>
       );
     }
 

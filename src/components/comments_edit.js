@@ -106,7 +106,7 @@ function validate(values) {
   }
 
   if(!values.author) {
-    errors.author = "Enter an authorname";
+    errors.author = "Enter your name";
   }
 
   return errors;
