@@ -100,24 +100,18 @@ class PostDetail extends Component {
                   </div>
                 </div>
               </nav>              
-            
           </div>
-
-          <div className="media-right">
-          </div>
+          <div className="media-right"></div>
         </article>
         <hr />
 
         <nav className="level is-mobile">
           <div className="level-left">
             <div className="level-item">
-              <p className="subtitle is-5">
-                <strong>Comments</strong>
-              </p>
+              <p className="subtitle is-5"><strong>Comments</strong></p>
             </div>
           </div>
-          <div className="level-right">
-          </div>
+          <div className="level-right"></div>
         </nav>
 
         <CommentsNew />

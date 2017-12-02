@@ -88,7 +88,7 @@ class CommentsEdit extends Component {
             <div className="field">
               <p className="control">
                 <button disabled={pristine || submitting} className="button">Save comment</button>&nbsp;&nbsp;
-                <button type="button" onClick={() => this.props.toggleCommentView('eoauoae')}className="button is-danger">Cancel</button>
+                <button type="button" onClick={() => this.props.toggleCommentView('')}className="button is-danger">Cancel</button>
               </p>
             </div>
           </form>
