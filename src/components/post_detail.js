@@ -9,13 +9,14 @@ import CategorySubnav from './category_subnav';
 import CommentsNew from './comments_new';
 import CommentsListItem from './comments_list_item';
 import CommentsEdit from './comments_edit';
+import NotFound from './404';
 
 class PostDetail extends Component {
 
-  componentDidMount() {
-    const { id } = this.props.match.params
-    this.props.fetchPostDetail(id);
-    this.props.fetchComments(id);    
+  componentDidMount = () => {
+    const { match: { params: { id } }, fetchPostDetail, fetchComments } = this.props
+    fetchPostDetail(id);
+    fetchComments(id);    
   }
 
   handleDelete = (id) => {
@@ -32,23 +33,16 @@ class PostDetail extends Component {
 
   render() {
 
-    // const { id } = this.props.match.params;
-    // const { posts } = this.props;
-    
     // Is this the correct way to prevent loading data too early?
     // if (!posts || !posts["lists"] || !posts["lists"][id]) {
     //   return (<div>Loading</div>);
     // } 
 
-    // const post = posts["lists"][id];
-
-    // console.log("Post Detail Page", this.props.match.params.id, posts, post);
-
     const { post, comments, categories } = this.props;
 
     if(!post) {
       return (
-        <div>Null</div>
+        <NotFound />
       );
     }
 
