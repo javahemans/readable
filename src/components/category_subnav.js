@@ -13,25 +13,24 @@ const CategorySubnav = (props) => {
     return null;
   }
 
-
   return (
-        <section>
-        <div className="container">
-          <nav className="level">
-            <div className="level-item has-text-centered">
-              <p className="level-item tag is-primary"><Link to="/">ALL</Link></p>
+    <section>
+      <div className="container">
+        <nav className="level">
+          <div className="level-item has-text-centered">
+            <p className="level-item tag is-primary"><Link to="/">ALL</Link></p>
+          </div>
+        {props.categories.map(cat => {
+          return (
+            <div key={cat.path} className="level-item has-text-centered">
+              <div className="level-item tag is-light"><Link to={`/category/${cat.path}`}>{cat.name}</Link></div>
             </div>
-          {props.categories.map(cat => {
-            return (
-              <div key={cat.path} className="level-item has-text-centered">
-                <div className="level-item tag is-light"><Link to={`/category/${cat.path}`}>{cat.name}</Link></div>
-              </div>
-            )
-          })}
-          </nav>
-          <hr />
-        </div>
-      </section>  
+          )
+        })}
+        </nav>
+        <hr />
+      </div>
+    </section>  
   );
 }
 

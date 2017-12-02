@@ -36,5 +36,4 @@ window.moment = moment; // Debugging moment in console.
     );
 }
 
-
 export default App;

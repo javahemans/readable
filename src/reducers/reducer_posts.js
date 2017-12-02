@@ -7,7 +7,7 @@ import {
   ORDER_POSTS_BY,
   GET_CATEGORIES, GET_CATEGORIES_FULFILLED,
   EDIT_POST, 
-  DELETE_POST } from '../actions';
+  DELETE_POST } from '../actions/actionTypes';
 
 const initialState = {
   lists: {},

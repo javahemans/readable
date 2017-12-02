@@ -1,77 +1,20 @@
 import axios from 'axios';
 import { v4 } from 'uuid';
 
-// PostsReducer Actions. (X, X_PENDING, X_FULFILLED) handled
-// by redux-promise-middleware.
+import * as Types from './actionTypes';
 
-export const FETCH_POSTS = 'FETCH_POSTS';
-export const FETCH_POSTS_PENDING = 'FETCH_POSTS_PENDING';
-export const FETCH_POSTS_FULFILLED = 'FETCH_POSTS_FULFILLED';
-
-export const FETCH_CATEGORY_POSTS = 'FETCH_CATEGORY_POSTS';
-export const FETCH_CATEGORY_POSTS_PENDING = 'FETCH_CATEGORY_POSTS_PENDING';
-export const FETCH_CATEGORY_POSTS_FULFILLED = 'FETCH_CATEGORY_POSTS_FULFILLED';
-
-export const FETCH_POST_DETAIL = 'FETCH_POST_DETAIL';
-export const FETCH_POST_DETAIL_PENDING = 'FETCH_POST_DETAIL_PENDING';
-export const FETCH_POST_DETAIL_FULFILLED = 'FETCH_POST_DETAIL_FULFILLED';
-
-export const VOTE_POST = 'VOTE_POST';
-export const VOTE_POST_PENDING = 'VOTE_POST_PENDING';
-export const VOTE_POST_FULFILLED = 'VOTE_POST_FULFILLED';
-
-export const ORDER_POSTS_BY = 'ORDER_POSTS_BY';
-export const ORDER_POSTS_BY_PENDING = 'ORDER_POSTS_BY_PENDING';
-export const ORDER_POSTS_BY_FULFILLED = 'ORDER_POSTS_BY_FULFILLED';
-
-export const GET_CATEGORIES = 'GET_CATEGORIES';
-export const GET_CATEGORIES_PENDING = 'GET_CATEGORIES_PENDING';
-export const GET_CATEGORIES_FULFILLED = 'GET_CATEGORIES_FULFILLED';
-
-// PostsReducer Actions: Handled by Redux Thunk
-
-export const CREATE_POST = 'CREATE_POST';
-export const EDIT_POST = 'EDIT_POST';
-export const DELETE_POST = 'DELETE_POST';
-
-// CommentsReducer Actions. (X, X_PENDING, X_FULFILLED) handled
-// by redux-promise-middleware.
-
-export const FETCH_COMMENTS = 'FETCH_COMMENTS';
-export const FETCH_COMMENTS_PENDING = 'FETCH_COMMENTS_PENDING';
-export const FETCH_COMMENTS_FULFILLED = 'FETCH_COMMENTS_FULFILLED';
-
-export const FETCH_COMMENT = 'FETCH_COMMENT';
-export const FETCH_COMMENT_PENDING = 'FETCH_COMMENT_PENDING';
-export const FETCH_COMMENT_FULFILLED = 'FETCH_COMMENT_FULFILLED';
-
-export const VOTE_COMMENT = 'VOTE_COMMENT';
-export const VOTE_COMMENT_PENDING = 'VOTE_COMMENT_PENDING';
-export const VOTE_COMMENT_FULFILLED = 'VOTE_COMMENT_FULFILLED';
-
-// CommentsReducer Actions: Handled by Redux Thunk
-
-export const CREATE_COMMENT = 'CREATE_COMMENT';
-export const CREATE_COMMENT_FULFILLED = 'CREATE_COMMENT_FULFILLED';
-export const TOGGLE_COMMENT_EDIT = 'TOGGLE_COMMENT_EDIT';
-export const EDIT_COMMENT = 'EDIT_COMMENT';
-export const DELETE_COMMENT = 'DELETE_COMMENT';
-
-
+console.log("Types is, ", Types);
 const ROOT_URL = 'http://localhost:3001';
 
 const apiRequest = axios.create({
   headers: { 'Authorization': 'nagibAuth' }
 })
 
-// Here we're going to making a request to an API
-// We're using axios
-
 export function getCategories(){
   const request = apiRequest.get(`${ROOT_URL}/categories`);
 
   return {
-    type: GET_CATEGORIES,
+    type: Types.GET_CATEGORIES,
     payload: request
   }
 }
@@ -81,7 +24,7 @@ export function fetchPosts(){
   const request = apiRequest.get(`${ROOT_URL}/posts`);
 
   return {
-    type: FETCH_POSTS,
+    type: Types.FETCH_POSTS,
     payload: request
   }
 }
@@ -92,7 +35,7 @@ export function fetchCategoryPosts(category){
   // console.log("Fetch Category Action Creator: ", category, request1, request);
   
     return {
-      type: FETCH_CATEGORY_POSTS,
+      type: Types.FETCH_CATEGORY_POSTS,
       payload: request
     }
 }
@@ -101,7 +44,7 @@ export function fetchPostDetail(id){
   const request = apiRequest.get(`${ROOT_URL}/posts/${id}`);
     
     return {
-      type: FETCH_POST_DETAIL,
+      type: Types.FETCH_POST_DETAIL,
       payload: request
     }
 }
@@ -113,7 +56,7 @@ export function votePost(voteDirection, id){
   const request = apiRequest.post(`${ROOT_URL}/posts/${id}`, params);
   // console.log("votePost Action Creator request");  
     return {
-      type: VOTE_POST,
+      type: Types.VOTE_POST,
       payload: request
     }
 }
@@ -121,7 +64,7 @@ export function votePost(voteDirection, id){
 export function orderPostsBy(order) {
 
   return {
-    type: ORDER_POSTS_BY,
+    type: Types.ORDER_POSTS_BY,
     payload: order
   }
 }
@@ -137,7 +80,7 @@ export function createPost(values, callback) {
   .then(() => callback());
   // console.log("Line 92 request is: ", request );
   return {
-    type: CREATE_POST,
+    type: Types.CREATE_POST,
     payload: request
   }
 }
@@ -155,7 +98,7 @@ export function editPost(id , values, callback) {
 
 function editPostSuccess(data) {
   return {
-      type: EDIT_POST,
+      type: Types.EDIT_POST,
       payload: data
   }
 }
@@ -173,7 +116,7 @@ export function deletePost(id, callback) {
 
 function deletePostSuccess(data) {
   return {
-      type: DELETE_POST,
+      type: Types.DELETE_POST,
       payload: data
   }
 }
@@ -182,7 +125,7 @@ export function fetchComments(id){
   const request = apiRequest.get(`${ROOT_URL}/posts/${id}/comments`);
 
   return {
-    type: FETCH_COMMENTS,
+    type: Types.FETCH_COMMENTS,
     payload: request
   }
 }
@@ -194,7 +137,7 @@ export function voteComment(voteDirection, commentId){
   const request = apiRequest.post(`${ROOT_URL}/comments/${commentId}`, params);
   // console.log("votePost Action Creator request");  
     return {
-      type: VOTE_COMMENT,
+      type: Types.VOTE_COMMENT,
       payload: request
     }
 }
@@ -209,7 +152,7 @@ export function createComment(values, parentId) {
     const request = apiRequest.post(`${ROOT_URL}/comments`, valuesPlus)
     // console.log("Line 92 request is: ", request );
     return {
-      type: CREATE_COMMENT,
+      type: Types.CREATE_COMMENT,
       payload: request
     }
   }
@@ -217,7 +160,7 @@ export function createComment(values, parentId) {
   export function toggleCommentView(commentId) {
     
       return {
-        type: TOGGLE_COMMENT_EDIT,
+        type: Types.TOGGLE_COMMENT_EDIT,
         payload: commentId
       }
     }      
@@ -236,7 +179,7 @@ export function createComment(values, parentId) {
 
   function editCommentSuccess(data) {
     return {
-        type: EDIT_COMMENT,
+        type: Types.EDIT_COMMENT,
         payload: data
     }
   }
@@ -253,21 +196,7 @@ export function createComment(values, parentId) {
     
     function deleteCommentSuccess(data) {
       return {
-          type: DELETE_COMMENT,
+          type: Types.DELETE_COMMENT,
           payload: data
       }
     }
-      
-
-// export const delPost = id => dispatch => {
-  // dispatch({type:''});
-  // getFromApi().then( data=>dispatch({type:'SETDATA', data}) )
-// }
-
-// AT THIS POINT I CAN SEE WHY REDUX-THUNK IS USEFUL
-// Redux Promise has been useful for resolving a promise, but not dispatching a series of actions.
-// It's not really an issue until you get to edit/update and delete. 
-// Phase 1: Merge these changes to Master. It's not great, but functional.
-// Phase 2: Update to redux-promise middleware and remove redux-promise. (Branch)
-// Phase 3: With Redux-Promise-MiddleWare working, merge to master.
-// Phase 4: Add Thunks.

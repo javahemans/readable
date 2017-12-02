@@ -27,52 +27,55 @@ class CommentsEdit extends Component {
 
 
   renderTextArea = (field) => {
+
+    const { input, label, meta : { touched, error } } = field;
     
     return (
       <div>
         <div className="field">
-          <label className="label is-medium">{field.label}</label>
+          <label className="label is-medium">{label}</label>
           <p className="control">
-            <textarea {...field.input} className={`is-medium textarea ${field.meta.touched && field.meta.error ? 'is-danger' : ''}`} placeholder="Add a comment..."></textarea>
+            <textarea {...input} className={`is-medium textarea ${touched && error ? 'is-danger' : ''}`} placeholder="Add a comment..."></textarea>
           </p>
         </div>
-        <p className="help is-danger">{field.meta.touched ? field.meta.error : '' }</p>
+        <p className="help is-danger">{touched ? error : '' }</p>
       </div>  
     );
   }
 
   renderField = (field) => {
-    
-        return (
-        <div className="container">
-          <div className="field">
-            <label className="label is-medium">{field.label}</label>
-            <div className="control">
-              <input 
-                className={`input is-medium ${field.meta.touched && field.meta.error ? 'is-danger' : ''}`}
-                type="text"
-                {...field.input}
-                placeholder="Your name (required)"
-                />
-            </div>
-            <p className="help is-danger">{field.meta.touched ? field.meta.error : '' }</p>
-          </div>
+
+    const { input, label, meta : { touched, error } } = field;
+        
+    return (
+    <div className="container">
+      <div className="field">
+        <label className="label is-medium">{label}</label>
+        <div className="control">
+          <input 
+            className={`input is-medium ${touched && error ? 'is-danger' : ''}`}
+            type="text"
+            {...input}
+            placeholder="Your name (required)"
+            />
         </div>
-        );
-      }
+        <p className="help is-danger">{touched ? error : '' }</p>
+      </div>
+    </div>
+    );
+  }
       
 
   onSubmit = (values) => {
     console.log(values);
-    const { id } = this.props.comment;
-    const { editComment } = this.props
+    const { editComment, comment: { id } } = this.props;
     return editComment(values, id)
   }
 
 
   render () {
 
-    const { handleSubmit, pristine, submitting } = this.props; 
+    const { handleSubmit, pristine, submitting, toggleCommentView } = this.props; 
     
     return (
         <div className="media-content">
@@ -88,7 +91,7 @@ class CommentsEdit extends Component {
             <div className="field">
               <p className="control">
                 <button disabled={pristine || submitting} className="button">Save comment</button>&nbsp;&nbsp;
-                <button type="button" onClick={() => this.props.toggleCommentView('')}className="button is-danger">Cancel</button>
+                <button type="button" onClick={() => toggleCommentView('')}className="button is-danger">Cancel</button>
               </p>
             </div>
           </form>
@@ -114,10 +117,8 @@ function validate(values) {
 
 
 function mapStateToProps({ comments }){ 
-  // ES6: equivalent to state here and then const posts = state.posts in the body.
-  return { comments }; // ES6 as opposed to posts:posts
+  return { comments };
 }
-
 
 CommentsEdit = withRouter(connect(mapStateToProps, { editComment, toggleCommentView })(CommentsEdit))
 

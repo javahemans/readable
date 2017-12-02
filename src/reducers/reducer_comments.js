@@ -7,7 +7,7 @@ import {
   EDIT_COMMENT,
   DELETE_COMMENT
 
- } from '../actions';
+ } from '../actions/actionTypes';
 
 const initialState = {
   editingCommentId : ''
