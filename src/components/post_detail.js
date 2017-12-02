@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { fetchPostDetail, votePost, deletePost, fetchComments, voteComment, toggleCommentView, editComment, deleteComment } from '../actions';
+import { fetchPostDetail, votePost, deletePost, fetchComments, voteComment, toggleCommentView, editComment, deleteComment, getCategories } from '../actions';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import moment from 'moment';
@@ -13,9 +13,10 @@ import CommentsEdit from './comments_edit';
 class PostDetail extends Component {
 
   componentDidMount = () => {
-    const { match: { params: { id } }, fetchPostDetail, fetchComments } = this.props
+    const { match: { params: { id } }, fetchPostDetail, fetchComments, getCategories } = this.props
     fetchPostDetail(id);
-    fetchComments(id);    
+    fetchComments(id);
+    getCategories();    
   }
 
   handleDelete = (id) => {
@@ -148,4 +149,4 @@ function mapStateToProps(state, ownProps ){
 }
 
 // export default App;
-export default  withRouter( connect(mapStateToProps, { fetchPostDetail, votePost, deletePost, fetchComments, voteComment, toggleCommentView, editComment, deleteComment })(PostDetail) );
+export default  withRouter( connect(mapStateToProps, { fetchPostDetail, votePost, deletePost, fetchComments, voteComment, toggleCommentView, editComment, deleteComment, getCategories })(PostDetail) );

@@ -3,16 +3,6 @@ import { Link } from 'react-router-dom';
 
 const CategorySubnav = (props) => {
 
-  // console.log(props);
-
-  // If this code is missing - When I reload from the URL direct, eg: /posts/postID I'll get an error
-  // If I put something like "Loading" here, I'll end up with both the view and that
-  // message?
-
-  if(!props.categories) {
-    return null;
-  }
-
   return (
     <section>
       <div className="container">

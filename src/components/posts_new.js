@@ -111,7 +111,7 @@ class PostsNew extends Component {
       <div className="container">
         <div className="title">New Post</div>
         <br/>
-        <form className="uform" onSubmit={handleSubmit(this.onSubmit.bind(this))} >
+        <form className="uform" onSubmit={handleSubmit(this.onSubmit)} >
           <Field 
             label="Post Title"
             name="title"

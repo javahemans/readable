@@ -1,11 +1,13 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createComment } from '../actions';
 
 
-class CommentsNew extends Component {
+class CommentsNew extends PureComponent {
+
+  // Note: If component lifecycle methods are used, you can use PureComponent..
 
   renderTextArea = (field) => {
     
@@ -60,7 +62,7 @@ class CommentsNew extends Component {
     return (
       <article className="media">
         <div className="media-content">
-          <form className="uform" onSubmit={handleSubmit(this.onSubmit.bind(this))} >
+          <form className="uform" onSubmit={handleSubmit(this.onSubmit)} >
             <Field 
               name="body"
               component={this.renderTextArea}
