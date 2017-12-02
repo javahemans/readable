@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchPosts, fetchCategoryPosts, orderPostsBy, getCategories, fetchComments, votePost } from '../actions';
+import { fetchPosts, fetchCategoryPosts, orderPostsBy, getCategories, fetchComments, votePost, deletePost } from '../actions';
 import PostItem from './posts_list_item';
 import CategorySubnav from './category_subnav';
 
@@ -23,6 +23,12 @@ class PostsList extends Component {
     if( prevProps.match.url!== this.props.match.url){
       this.fetchData();
     }
+  }
+
+  handleDelete = (id) => {
+    this.props.deletePost(id, () => {
+      this.props.history.push('/')
+    });
   }
 
   render() {
@@ -71,7 +77,7 @@ class PostsList extends Component {
             {_.map(orderedPosts, (p) => {
             return (
                 <li className="postItem" key={p.id}>
-                  <PostItem post={p} votePost={this.props.votePost} />
+                  <PostItem post={p} votePost={this.props.votePost} handleDelete={this.handleDelete} />
                 </li>
             );
             })}
@@ -87,4 +93,4 @@ function mapStateToProps({ posts }){ // ES6: equivalent to state here and then c
   return { posts }; // ES6 as opposed to posts:posts
 }
 
-export default  withRouter( connect(mapStateToProps, { fetchPosts, fetchCategoryPosts, orderPostsBy, getCategories, fetchComments, votePost })(PostsList) );
+export default  withRouter( connect(mapStateToProps, { fetchPosts, fetchCategoryPosts, orderPostsBy, getCategories, fetchComments, votePost, deletePost })(PostsList) );

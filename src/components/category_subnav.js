@@ -3,6 +3,14 @@ import { Link } from 'react-router-dom';
 
 const CategorySubnav = (props) => {
 
+  if(!props.categories) {
+    return(
+      <div className="container has-text-centered">
+        <h1>LOADING NAV</h1>
+      </div>
+    )
+  }
+
   return (
     <section>
       <div className="container">

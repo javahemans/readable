@@ -76,7 +76,7 @@ class PostDetail extends Component {
               </p>
               </Link>
               <p>
-                <small>In <i>{post.category}</i>, by: {post.author}</small> <small> | {moment(post.timestamp).from()}</small>
+                <small><span className="tag is-info">{post.category}</span> | by: {post.author}</small> <small> | {moment(post.timestamp).from()}</small>
               </p>
             </div>
 

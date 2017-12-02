@@ -30,17 +30,28 @@ import { Link } from 'react-router-dom';
             </p>
             </Link>
             <p>
-              <small>In <i>{post.category}</i>, by: {post.author}</small> <small> | {moment(post.timestamp).from()}</small>
+              <small><span className="tag is-info">{post.category}</span> | by: {post.author}</small> <small> | {moment(post.timestamp).from()}</small>
             </p>
           </div>
 
           <nav className="level is-mobile">
-            <div className="level-left">
-              <a className="level-item">
-              {post.commentCount}&nbsp; <span className="icon is-small"><i className="fa fa-comments"></i></span>
-              </a>
+            <div className="level-item has-text-centered">
+              <div>
+              <a>{post.commentCount}&nbsp;<i className="fa fa-comments"></i></a>                  
+              </div>
             </div>
-          </nav>
+            <div className="level-item has-text-centered">
+              <div>
+              <a onClick={() => props.handleDelete(post.id)}><span className="icon comment"><i className="fa fa-times"></i></span></a>                  
+              </div>
+            </div>
+            <div className="level-item has-text-centered">
+              <div>
+              <Link to={`/posts/${post.id}/edit`}><span className="icon comment"><i className="fa fa-pencil"></i></span></Link>
+              </div>
+            </div>
+          </nav>              
+
         </div>
 
       </article>
