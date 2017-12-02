@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import moment from 'moment';
 import _ from 'lodash';
-import { Route, Switch, Link } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Header from './app_header'
 import PostsList from './posts_list';
 import PostsNew from './posts_new';

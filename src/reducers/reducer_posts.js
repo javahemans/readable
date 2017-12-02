@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { 
-  FETCH_POSTS, FETCH_POSTS_FULFILLED, 
-  FETCH_CATEGORY_POSTS, FETCH_CATEGORY_POSTS_FULFILLED,
+  FETCH_POSTS_FULFILLED, 
+  FETCH_CATEGORY_POSTS_FULFILLED,
   FETCH_POST_DETAIL_FULFILLED, 
   VOTE_POST_FULFILLED,
   ORDER_POSTS_BY,
@@ -10,6 +10,7 @@ import {
   DELETE_POST } from '../actions';
 
 const initialState = {
+  lists: {},
   orderBy : "voteScore"
 }
 
@@ -69,7 +70,7 @@ export default function (state = initialState, action) {
       // console.log("Delete Post Reducer: payload, state, newState, ", action.payload, state, newState);
       return {...state, lists: {...newState}};
     }
-          
+
     default: 
       return state;
   }

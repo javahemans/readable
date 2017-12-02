@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
+import CategorySubnav from './category_subnav';
 import CommentsNew from './comments_new';
 import CommentsListItem from './comments_list_item';
 import CommentsEdit from './comments_edit';
@@ -43,7 +44,7 @@ class PostDetail extends Component {
 
     // console.log("Post Detail Page", this.props.match.params.id, posts, post);
 
-    const { post, comments } = this.props;
+    const { post, comments, categories } = this.props;
 
     if(!post) {
       return (
@@ -56,6 +57,8 @@ class PostDetail extends Component {
 
     return (
       <div className="container">
+        <CategorySubnav categories={categories} />
+
         <article key={post.id} className="media">
           <figure className="media-left votebox">
             <p className="has-text-centered">
@@ -146,7 +149,8 @@ function mapStateToProps(state, ownProps ){
   
   return {
     post: state.posts && state.posts["lists"] && state.posts["lists"][ownProps.match.params.id],
-    comments: state.comments
+    comments: state.comments,
+    categories: state.posts["categories"]
   };
 }
 

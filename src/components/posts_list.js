@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchPosts, fetchCategoryPosts, orderPostsBy, getCategories, fetchComments, votePost } from '../actions';
 import PostItem from './posts_list_item';
+import CategorySubnav from './category_subnav';
 
 class PostsList extends Component {
 
@@ -42,25 +43,9 @@ class PostsList extends Component {
     // console.log("Ordered posts baby: ",orderedPosts, posts.orderBy )
     // console.log("Posts[Categories] is: ", posts["categories"]);
     
-    return(
+    return (
       <div>
-        <section>
-          <div className="container">
-            <nav className="level">
-              <div className="level-item has-text-centered">
-                <p className="level-item"><Link to="/">ALL</Link></p>
-              </div>
-            {posts["categories"].map(cat => {
-              return (
-                <div key={cat.path} className="level-item has-text-centered">
-                  <p className="level-item"><Link to={`/${cat.path}`}>{cat.name}</Link></p>
-                </div>
-              )
-            })}
-            </nav>
-            <hr />
-          </div>
-        </section>
+        <CategorySubnav categories={posts["categories"]} />
         <section>
           <div className="container">
             <nav className="level">
@@ -82,7 +67,7 @@ class PostsList extends Component {
               <div className="level-right">
               </div>
             </nav>
-            <hr/>          
+            <br/>          
           </div>
         </section>
         <section>
