@@ -16,7 +16,7 @@ const CategorySubnav = (props) => {
           {props.categories.map(cat => {
             return (
               <div key={cat.path} className="level-item has-text-centered">
-                <div className="level-item tag is-light"><Link to={`/${cat.path}`}>{cat.name}</Link></div>
+                <div className="level-item tag is-light"><Link to={`/category/${cat.path}`}>{cat.name}</Link></div>
               </div>
             )
           })}

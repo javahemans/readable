@@ -8,6 +8,7 @@ import PostsList from './posts_list';
 import PostsNew from './posts_new';
 import PostDetail from './post_detail';
 import PostsEdit from './posts_edit';
+import Notfound from './404.js';
 
 import { v4 } from 'uuid';
 
@@ -25,7 +26,8 @@ window.moment = moment; // Debugging moment in console.
           <Route exact path ='/posts/new' component={PostsNew} />
           <Route exact path ='/posts/:id' component={PostDetail} />
           <Route exact path ='/posts/:id/edit' component={PostsEdit} />
-          <Route path ='/:category' component={PostsList} />
+          <Route exact path ='/category/:category' component={PostsList} />
+          <Route component={Notfound} />
         </Switch>
           {/* <Route exact path="/:category/posts" render={({match, location}) => (
               <PostsList match={match} location={location}  />

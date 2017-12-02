@@ -29,10 +29,6 @@ class PostsList extends Component {
 
     const { posts } = this.props;
     
-    
-    // How can I ensure that every property within posts has been received? (not undefined?) Do I have to be this explicit?
-    // I was getting undefined on the categories attribute within posts until I checked it explicitly.
-
     if (!posts || !posts["categories"]) {
       return (
         <div>Loading</div>
@@ -40,8 +36,6 @@ class PostsList extends Component {
     }
  
     const orderedPosts = _.orderBy(posts["lists"], posts.orderBy, 'desc' );
-    // console.log("Ordered posts baby: ",orderedPosts, posts.orderBy )
-    // console.log("Posts[Categories] is: ", posts["categories"]);
     
     return (
       <div>
@@ -93,5 +87,4 @@ function mapStateToProps({ posts }){ // ES6: equivalent to state here and then c
   return { posts }; // ES6 as opposed to posts:posts
 }
 
-// export default App;
 export default  withRouter( connect(mapStateToProps, { fetchPosts, fetchCategoryPosts, orderPostsBy, getCategories, fetchComments, votePost })(PostsList) );
