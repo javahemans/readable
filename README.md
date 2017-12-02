@@ -36,6 +36,7 @@ Information about the API server and how to use it can be found in its [README f
 - Component lifecycle methods beyond componentDidMount :)
 
 # Future Stuff
+- NavLink highlighting for category
 - Deploy this app to ZEIT, Screenshots
 - Tidy up mobile UX and move some buttons over to a mobile menu.
 - Explore use of _PENDING middleware actions in conjunction with Bulma to have a loading animation on button submit
