@@ -4,6 +4,9 @@ import './index.css';
 import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';
 import '../node_modules/bulma/css/bulma.css';
+import '../node_modules/font-awesome/css/font-awesome.min.css';
+
+
 import { BrowserRouter } from 'react-router-dom';
 
 import { Provider } from 'react-redux';

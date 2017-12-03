@@ -44,7 +44,7 @@ class PostsList extends Component {
       
     }
 
-    console.log("Categories, categoryParam: ", posts["categories"], category, !!category);
+    // console.log("Categories, categoryParam: ", posts["categories"], category, !!category);
     
     if (!!category && !(posts["categories"].map( cat => cat.path)).includes(category) ) {
       return  <NotFound />      

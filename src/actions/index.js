@@ -3,7 +3,7 @@ import { v4 } from 'uuid';
 
 import * as Types from './actionTypes';
 
-console.log("Types is, ", Types);
+// console.log("Action Types are, ", Types);
 const ROOT_URL = 'http://localhost:3001';
 
 const apiRequest = axios.create({

@@ -37,6 +37,7 @@ Information about the API server and how to use it can be found in its [README f
 
 # Future Stuff
 - Redux Form Validators for additional validation checks
+- Redux Logger
 - NavLink highlighting for category
 - Deploy this app to ZEIT, Screenshots
 - Tidy up mobile UX and move some buttons over to a mobile menu.
