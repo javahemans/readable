@@ -22,7 +22,7 @@ import { Link } from 'react-router-dom';
 
         <div className="media-content">
           <div className="content">
-            <Link to={`/posts/${post.id}`}>
+            <Link to={`/${post.category}/${post.id}`}>
             <p>
               <strong>{post.title}</strong>
               <br />
@@ -47,7 +47,7 @@ import { Link } from 'react-router-dom';
             </div>
             <div className="level-item has-text-centered">
               <div>
-              <Link to={`/posts/${post.id}/edit`}><span className="icon comment"><i className="fa fa-pencil"></i></span></Link>
+              <Link to={`/${post.category}/${post.id}/edit`}><span className="icon comment"><i className="fa fa-pencil"></i></span></Link>
               </div>
             </div>
           </nav>              

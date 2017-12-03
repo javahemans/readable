@@ -24,9 +24,9 @@ window.moment = moment; // Debugging moment in console.
         <Switch>
           <Route exact path ='/' component={PostsList} />
           <Route exact path ='/posts/new' component={PostsNew} />
-          <Route exact path ='/posts/:id' component={PostDetail} />
-          <Route exact path ='/posts/:id/edit' component={PostsEdit} />
-          <Route exact path ='/category/:category' component={PostsList} />
+          <Route path ='/:category/:id/edit' component={PostsEdit} />
+          <Route path ='/:category/:id' component={PostDetail} />
+          <Route path ='/:category' component={PostsList} />
           <Route component={NotFound} />
         </Switch>
           {/* <Route exact path="/:category/posts" render={({match, location}) => (

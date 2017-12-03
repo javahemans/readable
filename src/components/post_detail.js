@@ -9,6 +9,7 @@ import CategorySubnav from './category_subnav';
 import CommentsNew from './comments_new';
 import CommentsListItem from './comments_list_item';
 import CommentsEdit from './comments_edit';
+import NotFound from './404.js';
 
 class PostDetail extends Component {
 
@@ -38,11 +39,13 @@ class PostDetail extends Component {
     //   return (<div>Loading</div>);
     // } 
 
-    const { post, comments, categories } = this.props;
+    const { post, comments, categories, match : { params : { category } } } = this.props;
 
-    if(!post) {
+    if(!post || post.category !== category ) {
       return (
-        <div className="container">Loading</div>
+        <div className="container">
+          <NotFound />
+        </div>
       );
     }
 
@@ -67,14 +70,12 @@ class PostDetail extends Component {
           </figure>
 
           <div className="media-content">
-            <div className="content" onClick={this.handleClick}>
-              <Link to={`/posts/${post.id}`}>
+            <div className="content">
               <p>
                 <strong>{post.title}</strong>
                 <br />
                 {post.body}
               </p>
-              </Link>
               <p>
                 <small><span className="tag is-info">{post.category}</span> | by: {post.author}</small> <small> | {moment(post.timestamp).from()}</small>
               </p>

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { fetchPosts, fetchCategoryPosts, orderPostsBy, getCategories, fetchComments, votePost, deletePost } from '../actions';
 import PostItem from './posts_list_item';
 import CategorySubnav from './category_subnav';
+import NotFound from './404.js';
 
 class PostsList extends Component {
 
@@ -33,12 +34,20 @@ class PostsList extends Component {
 
   render() {
 
-    const { posts } = this.props;
+    const { posts, match: { params : { category } } } = this.props;
     
     if (!posts || !posts["categories"]) {
+
       return (
-        <div className="container">Loading</div>
-      );
+        <NotFound />
+      )
+      
+    }
+
+    console.log("Categories, categoryParam: ", posts["categories"], category, !!category);
+    
+    if (!!category && !(posts["categories"].map( cat => cat.path)).includes(category) ) {
+      return  <NotFound />      
     }
  
     const orderedPosts = _.orderBy(posts["lists"], posts.orderBy, 'desc' );
@@ -84,7 +93,7 @@ class PostsList extends Component {
             </ul>
           </div>
         </section>
-      </div>      
+      </div>
     );
   }
 }
