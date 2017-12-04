@@ -12,7 +12,6 @@ class PostsList extends Component {
   fetchData = () => {
     this.props.match.params.category ? this.props.fetchCategoryPosts(this.props.match.params.category) : this.props.fetchPosts();
     this.props.getCategories();
-    this.props.fetchComments();
   }
 
   componentDidMount() {
@@ -45,7 +44,7 @@ class PostsList extends Component {
     }
 
     // console.log("Categories, categoryParam: ", posts["categories"], category, !!category);
-    
+
     if (!!category && !(posts["categories"].map( cat => cat.path)).includes(category) ) {
       return  <NotFound />      
     }
