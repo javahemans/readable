@@ -99,9 +99,9 @@ class PostsEdit extends Component {
     
   onSubmit = (values) => {
     // console.log(values);
-    const { id } = this.props.match.params;
+    const { id, category } = this.props.match.params;
     this.props.editPost(id, values, () => {
-      this.props.history.push(`/posts/${id}`);
+      this.props.history.push(`/${category}/${id}`);
     });
   }
 
