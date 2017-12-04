@@ -94,7 +94,7 @@ class PostDetail extends Component {
                 </div>
                 <div className="level-item has-text-centered">
                   <div>
-                  <Link to={`/posts/${post.id}/edit`}><span className="icon comment"><i className="fa fa-pencil"></i></span></Link>
+                  <Link to={`/${post.category}/${post.id}/edit`}><span className="icon comment"><i className="fa fa-pencil"></i></span></Link>
                   </div>
                 </div>
               </nav>              
